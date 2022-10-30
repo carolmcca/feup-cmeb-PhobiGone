@@ -1,0 +1,16 @@
+<vector
+    android:height="289.98273dp" android:viewportHeight="530.1"
+    android:viewportWidth="457.01" android:width="250dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:rotation="90"
+        android:pivotX="229"
+        android:pivotY="265"
+        android:scaleX="0.85"
+        android:scaleY="0.85">
+        <path
+            android:fillColor="@color/sand"
+            android:pathData="M453.51,394.63l-224.04,131.42l-225,-129.58l-0.96,-261l224.03,-131.42l225,129.58l0.97,261z"
+            android:strokeColor="@color/eggShell" android:strokeWidth="7"/>
+    </group>
+</vector>
