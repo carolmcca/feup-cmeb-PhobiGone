@@ -24,17 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btEval.setOnClickListener((View v)->onBtClick(btEval.getId()));
         btStats.setOnClickListener((View v)->onBtClick(btStats.getId()));
         btFacts.setOnClickListener((View v)->onBtClick(btFacts.getId()));
-
-        //TODO: delete this
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.addTrain("2012/10/31", 5);
-        dbHelper.addTrain("2013/11/01", 5);
-        dbHelper.addTrain("2014/12/31", 5);
-        dbHelper.addTrain("2014/01/01", 5);
-        dbHelper.addTrain("2015/12/31", 5);
-        dbHelper.addTrain("2016/01/01", 5);
-        dbHelper.addTrain("2022/10/31", 5);
-        dbHelper.addTrain("2022/11/01", 32);
+        
     }
 
     private void onBtClick(int id) {

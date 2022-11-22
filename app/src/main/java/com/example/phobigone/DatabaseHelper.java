@@ -1,5 +1,6 @@
 package com.example.phobigone;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -73,19 +74,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addTrain(float train_time) {
+        //Get current date
         LocalDate localDate = LocalDate.now();
         String date = dtf.format(localDate);
+        //Get database
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Calculate current streak
+        Integer streak = calcStreak(date);
+        //Insert the new entry onto the database
+        String query = "INSERT INTO Train(date, train_time, streak) VALUES( '" + date + "', " + train_time + ", " + streak + ")";
+        db.execSQL(query);
+    }
+
+
+    //TODO: Just to populate database, remove before submission
+    public void addTrain(String date, float train_time) {
         SQLiteDatabase db = this.getWritableDatabase();
         Integer streak = calcStreak(date);
         String query = "INSERT INTO Train(date, train_time, streak) VALUES( '" + date + "', " + train_time + ", " + streak + ")";
         db.execSQL(query);
     }
 
-    public void addTrain(String date, float train_time) {
+    public void addTest(Integer level, float perc_img) {
+        //Get current date
+        LocalDate localDate = LocalDate.now();
+        String date = dtf.format(localDate);
+        //Get database
         SQLiteDatabase db = this.getWritableDatabase();
-        Integer streak = calcStreak(date);
-        String query = "INSERT INTO Train(date, train_time, streak) VALUES( '" + date + "', " + train_time + ", " + streak + ")";
+        //Insert the new entry onto the database
+        String query = "INSERT INTO Test(date, level, perc_img) VALUES( '" + date + "', " + level + ", " + perc_img + ")";
         db.execSQL(query);
+    }
+
+    public void earnBadge(Integer id) {
+        //Get database
+        SQLiteDatabase db = this.getWritableDatabase();
+        List<String> badge = readRowFromTable("SELECT * FROM Badge WHERE id = " + id + ";");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", badge.get(0));
+        contentValues.put("name", badge.get(1));
+        contentValues.put("description", badge.get(2));
+        contentValues.put("earned", 1);
+        //Change the state of the badge to conquered on database
+        db.replace("Badge", null, contentValues);
     }
 
     private Integer calcStreak(String date) {
@@ -104,15 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Integer dbYear = Integer.valueOf(data.get(0).substring(0, 4));
                 YearMonth yearMonth = YearMonth.of(year, lastMonth);
                 int daysInLastMonth = yearMonth.lengthOfMonth();
-                //TODO: delete this
-                boolean a = dbDay == daysInLastMonth;
-                boolean b = dbMonth == lastMonth;
-                boolean c = (lastMonth == 12 && dbYear == year-1);
-                boolean d1 = lastMonth != 12;
-                boolean d2 = year.equals(dbYear);
-                boolean burro = 2022==2022;
-                boolean d = (lastMonth != 12 && year == dbYear);
-                boolean result = (a && b && (c || d));
+
                 if (dbDay.equals(daysInLastMonth) && dbMonth.equals(lastMonth) && ((lastMonth.equals(12) && dbYear.equals(year-1))||(!lastMonth.equals(12) && year.equals(dbYear))))
                     streak = Integer.valueOf(data.get(1)) + 1;
             }
