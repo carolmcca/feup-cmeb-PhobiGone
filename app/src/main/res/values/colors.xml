@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="lightSand">#F6D190</color>
     <color name="sand">#E1B66C</color>
     <color name="brown">#AB7422</color>
     <color name="darkBrown">#8D5F1A</color>
+    <color name="reallydarkBrown">#614213</color>
     <color name="eggShell">#FFF5E2</color>
     <color name="gray">#9D8259</color>
     <color name="black">#FF000000</color>

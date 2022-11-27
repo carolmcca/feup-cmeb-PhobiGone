@@ -10,6 +10,16 @@
         <item name="android:textSize">45sp</item>
         <item name="android:textColor">@color/brown</item>
         <item name="android:lineSpacingExtra">22dp</item>
-    </style>
 
+    </style>
+    <style name="spinnerTheme">
+        <item name="android:textColor">@color/darkBrown</item>
+    </style>
+    <style name="statsElement">
+        <item name="android:layout_marginStart">20sp</item>
+        <item name="android:layout_marginEnd">20sp</item>
+        <item name="android:layout_marginTop">20sp</item>
+        <item name="android:layout_marginBottom">10sp</item>
+
+    </style>
 </resources>

@@ -3,6 +3,7 @@ package com.example.phobigone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btEval.setOnClickListener((View v)->onBtClick(btEval.getId()));
         btStats.setOnClickListener((View v)->onBtClick(btStats.getId()));
         btFacts.setOnClickListener((View v)->onBtClick(btFacts.getId()));
+        
     }
 
     private void onBtClick(int id) {
