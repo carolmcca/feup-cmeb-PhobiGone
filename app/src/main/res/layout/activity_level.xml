@@ -8,15 +8,15 @@
     android:background="@color/sand"
     tools:context=".LevelActivity">
 
-    <VideoView
-        android:id="@+id/videoView"
+    <ImageView
+        android:id="@+id/spider_img"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_gravity="center"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:layout_gravity="center" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="100dp" />
 
     <Button
         android:id="@+id/bt_exit"
