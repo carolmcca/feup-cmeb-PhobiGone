@@ -44,9 +44,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "file_name TEXT, " +
                 "level INTEGER);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Setting( " +
-                "exp_train_time INTEGER PRIMARY KEY, " +
+                "id INTEGER PRIMARY KEY, " +
+                "exp_train_time INTEGER, " +
                 "notifications BOOLEAN, " +
                 "sound BOOLEAN);");
+        db.execSQL("INSERT INTO Setting(id, exp_train_time, notifications, sound) VALUES(1, 15, true, true);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Train( " +
                 "id INTEGER PRIMARY KEY, " +
                 "date TEXT, " +
@@ -118,6 +120,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("earned", 1);
         //Change the state of the badge to conquered on database
         db.replace("Badge", null, contentValues);
+    }
+
+    public void saveSettings(boolean notifications, boolean sound, Integer time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put("id", 1);
+        content.put("notifications", notifications);
+        content.put("sound", sound);
+        content.put("exp_train_time", time);
+        db.replace("Setting", null, content);
     }
 
     private Integer calcStreak(String date) {
