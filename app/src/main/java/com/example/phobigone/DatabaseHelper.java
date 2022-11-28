@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         put("Setting", Arrays.asList("exp_train_time", "notifications", "sound"));
         put("Train", Arrays.asList("id", "date", "train_time", "streak"));
         put("Test", Arrays.asList("id", "date", "level", "perc_img"));
-        put("Badge", Arrays.asList("id", "name", "description", "earned"));
+        put("Badge", Arrays.asList("id", "name", "description", "earned", "icon"));
     }};
     private static final String DATABASE_NAME = "phobiGone.db";
     private static final int DATABASE_VERSION = 1;
@@ -44,9 +44,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "file_name TEXT, " +
                 "level INTEGER);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Setting( " +
-                "exp_train_time INTEGER PRIMARY KEY, " +
+                "id INTEGER PRIMARY KEY, " +
+                "exp_train_time INTEGER, " +
                 "notifications BOOLEAN, " +
                 "sound BOOLEAN);");
+        db.execSQL("INSERT INTO Setting(id, exp_train_time, notifications, sound) VALUES(1, 15, true, true);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Train( " +
                 "id INTEGER PRIMARY KEY, " +
                 "date TEXT, " +
@@ -60,7 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS Badge( " +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT, " +
-                "description Text, " +
+                "description TEXT, " +
+                "icon TEXT, " +
                 "earned BOOLEAN);");
     }
 
@@ -117,6 +120,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("earned", 1);
         //Change the state of the badge to conquered on database
         db.replace("Badge", null, contentValues);
+    }
+
+    public void saveSettings(boolean notifications, boolean sound, Integer time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put("id", 1);
+        content.put("notifications", notifications);
+        content.put("sound", sound);
+        content.put("exp_train_time", time);
+        db.replace("Setting", null, content);
     }
 
     private Integer calcStreak(String date) {
@@ -180,5 +193,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    public List<List<String>> readTableFromDatabase(String query) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<List<String>> data = new ArrayList<>();
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        if (cursor.getCount() != 0) {
+            while(cursor.moveToNext()) {
+                List<String> row = new ArrayList<>();
+                for (int i = 0; i < cursor.getColumnCount(); i++)
+                    row.add(cursor.getString(i));
+                data.add(row);
+            }
+        }
 
+        return data;
+    }
+
+
+    public ArrayList<Badge> getEarnedBadges() {
+        List<List<String>> badgesArray = readTableFromDatabase("SELECT name, description, icon FROM Badge WHERE earned = 1;");
+        ArrayList<Badge> badges = new ArrayList();
+        for (List<String> badgeArray:badgesArray) {
+            badges.add(new Badge(badgeArray.get(0), badgeArray.get(1), badgeArray.get(2)));
+        }
+        return badges;
+    }
 }

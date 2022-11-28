@@ -62,15 +62,6 @@
         <activity
             android:name=".SettingsActivity">
         </activity>
-        <activity
-            android:name=".StatsActivity">
-        </activity>
-        <activity
-            android:name=".EvalActivity">
-        </activity>
-        <activity
-            android:name=".TestActivity">
-        </activity>
     </application>
 
 </manifest>
