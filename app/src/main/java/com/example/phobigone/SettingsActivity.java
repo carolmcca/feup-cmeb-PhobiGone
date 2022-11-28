@@ -3,10 +3,16 @@ package com.example.phobigone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
     Integer step = 5, min = 0, max = 5, def_progress = 2;
@@ -41,5 +47,13 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        ListView badgesLv = findViewById(R.id.badges);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        ArrayList<Badge> badges = dbHelper.getEarnedBadges();
+        BadgeListAdapter badgeAdapter = new BadgeListAdapter(this, R.layout.badge_adapter_layout, badges);
+        badgesLv.setAdapter(badgeAdapter);
+
+
     }
 }

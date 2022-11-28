@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+    <ImageView
+        android:id="@+id/badge_logo"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_weight="80"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="20">
+
+        <TextView
+            android:id="@+id/badge_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/brown"
+            android:fontFamily="@font/balgin_condensed"
+            android:layout_marginVertical="10dp"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/badge_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/balgin_condensed"
+            android:textColor="@color/darkSand"
+            android:text="TextView" />
+    </LinearLayout>
+
+</LinearLayout>
