@@ -6,4 +6,14 @@
     <string name="fact1">The peacock spider, Maratus volans, perform a dance as part of their mating ritual and it kind of looks like the YMCA.</string>
     <string name="fact2">Some spiders like to offer their loved ones a gift wrapped in silk to try and sweet talk their way into a date.</string>
     <string name="fact3">Spiders are oftentimes the most important biological control of pests in and around homes, yards, gardens and crops.</string>
+    <string-array name="dias">
+        <item>Present All</item>
+        <item>Last 30 days</item>
+        <item>Last 7 days</item>
+    </string-array>
+    <string name="select">Selection:</string>
+    <string name="Home">Home</string>
+    <string name="numHours">Number of daily hours</string>
+    <string name="stats">Statistics</string>
+    <string name="numImages">Number of images seen:</string>
 </resources>

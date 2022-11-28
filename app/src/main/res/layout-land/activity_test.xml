@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/levelMenu"
-    android:background="@drawable/facts_background"
+    android:background="@drawable/facts_background_land"
     tools:context=".TestActivity">
 
     <TextView
@@ -23,7 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp">
 
         <Button
             android:id="@+id/bt_level1"
@@ -45,7 +47,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp">
 
         <Button
             android:id="@+id/bt_level3"

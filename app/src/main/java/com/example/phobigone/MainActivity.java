@@ -3,7 +3,7 @@ package com.example.phobigone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         btEval.setOnClickListener((View v)->onBtClick(btEval.getId()));
         btStats.setOnClickListener((View v)->onBtClick(btStats.getId()));
         btFacts.setOnClickListener((View v)->onBtClick(btFacts.getId()));
+        
     }
 
     @Override
