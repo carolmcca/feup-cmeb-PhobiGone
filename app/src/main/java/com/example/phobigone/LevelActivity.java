@@ -13,6 +13,8 @@ public class LevelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
 
+        Integer level = getIntent().getIntExtra("level", -1);
+
         Button btExit = findViewById(R.id.bt_exit);
         btExit.setOnClickListener((View v)->onBtClick());
     }
