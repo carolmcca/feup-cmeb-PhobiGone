@@ -45,6 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "level INTEGER);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Setting( " +
                 "id INTEGER PRIMARY KEY, " +
+                "device_id TEXT," +
+                "device_name TEXT, " +
                 "exp_train_time INTEGER, " +
                 "notifications BOOLEAN, " +
                 "sound BOOLEAN);");
@@ -122,10 +124,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.replace("Badge", null, contentValues);
     }
 
-    public void saveSettings(boolean notifications, boolean sound, Integer time) {
+    public void saveSettings(String device_id, String device_name, boolean notifications, boolean sound, Integer time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
         content.put("id", 1);
+        content.put("device_name", device_name);
+        content.put("device_id", device_id);
         content.put("notifications", notifications);
         content.put("sound", sound);
         content.put("exp_train_time", time);
@@ -210,6 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return data;
+    }
+
+    public String getAddress() {
+        return readRowFromTable("SELECT device_id FROM Setting;").get(0);
     }
 
 

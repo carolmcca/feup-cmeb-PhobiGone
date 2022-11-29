@@ -10,18 +10,18 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/bt_train"
+        android:layout_width="270sp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15sp"
+        android:text="Train" />
+
+    <Button
         android:id="@+id/bt_test"
         android:layout_width="270sp"
         android:layout_height="wrap_content"
         android:layout_margin="15sp"
         android:text="Test" />
-
-    <Button
-        android:id="@+id/bt_eval"
-        android:layout_width="270sp"
-        android:layout_height="wrap_content"
-        android:layout_margin="15sp"
-        android:text="Evaluation" />
 
     <Button
         android:id="@+id/bt_stats"

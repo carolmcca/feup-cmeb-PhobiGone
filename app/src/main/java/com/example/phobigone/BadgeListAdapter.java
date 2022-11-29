@@ -29,7 +29,6 @@ public class BadgeListAdapter extends ArrayAdapter<Badge> {
         String description = getItem(position).getDescription();
         String icon = getItem(position).getIcon();
 
-        Badge badge = new Badge(title, description, icon);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
         TextView titleTv = (TextView) convertView.findViewById(R.id.badge_title);

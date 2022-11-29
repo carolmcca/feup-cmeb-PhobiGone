@@ -3,14 +3,12 @@ package com.example.phobigone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,13 +17,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btTrain = findViewById(R.id.bt_train);
         Button btTest = findViewById(R.id.bt_test);
-        Button btEval = findViewById(R.id.bt_eval);
         Button btStats = findViewById(R.id.bt_stats);
         Button btFacts = findViewById(R.id.bt_facts);
 
+        btTrain.setOnClickListener((View v)->onBtClick(btTrain.getId()));
         btTest.setOnClickListener((View v)->onBtClick(btTest.getId()));
-        btEval.setOnClickListener((View v)->onBtClick(btEval.getId()));
         btStats.setOnClickListener((View v)->onBtClick(btStats.getId()));
         btFacts.setOnClickListener((View v)->onBtClick(btFacts.getId()));
         
@@ -48,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
 
         switch (id) {
-            case R.id.bt_test:
+            case R.id.bt_train:
                 intent = new Intent(this, TestActivity.class);
                 break;
-            case R.id.bt_eval:
+            case R.id.bt_test:
                 intent = new Intent(this, EvalActivity.class);
                 break;
             case R.id.bt_stats:
