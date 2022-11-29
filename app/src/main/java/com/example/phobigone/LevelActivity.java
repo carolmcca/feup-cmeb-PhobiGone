@@ -19,7 +19,7 @@ public class LevelActivity extends AppCompatActivity {
 
         ImageView spiderImg = findViewById(R.id.spider_img);
 
-        int[] ids = {R.drawable.badge1,R.drawable.setts,R.drawable.badge1};
+        int[] ids = {R.drawable.badge_1,R.drawable.setts,R.drawable.badge_1};
 
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
