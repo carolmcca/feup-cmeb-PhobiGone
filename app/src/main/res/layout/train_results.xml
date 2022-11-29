@@ -24,16 +24,14 @@
             android:layout_marginTop="20sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:background="@drawable/border_elements2"
+            android:background="@color/eggShell_75"
             android:ems="10"
             android:gravity="center"
             android:inputType="textPersonName"
             android:padding="10sp"
             android:text="MESSAGE TO DISPLAY"
-            android:textColor="@color/lightSand"
+            android:textColor="@color/brown"
             android:textSize="25sp"/>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,11 +40,13 @@
             android:layout_marginTop="5sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:background="@drawable/border_elements"
-            android:padding="5dp">
+            android:background="@color/eggShell_75"
+            android:padding="5dp"
+            android:weightSum="100">
 
             <TextView
                 android:id="@+id/numImage"
+<<<<<<< Updated upstream
                 android:layout_width="140dp"
                 android:layout_height="67dp"
                 android:layout_gravity="center"
@@ -54,20 +54,38 @@
                 android:padding="5dp"
                 android:text="Number of Images seen:"
                 android:textSize="20sp" />
+=======
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:padding="5dp"
+                android:text="Number of images seen:"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10sp"
+                android:textSize="25sp"
+                android:fontFamily="@font/anton"
+                android:textColor="@color/brown"/>
+>>>>>>> Stashed changes
 
             <TextView
                 android:id="@+id/imageSeen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="50"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
-                android:layout_weight="0"
-                android:background="@drawable/border_elements2"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="10 Images"
+<<<<<<< Updated upstream
                 android:textColor="@color/lightSand"
                 android:textSize="20sp" />
+=======
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/brown"
+                android:textSize="25sp" />
+>>>>>>> Stashed changes
 
         </LinearLayout>
 
@@ -78,11 +96,13 @@
             android:layout_marginTop="5sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:background="@drawable/border_elements"
-            android:padding="5dp">
+            android:background="@color/eggShell_75"
+            android:padding="5dp"
+            android:weightSum="100">
 
             <TextView
                 android:id="@+id/textView5"
+<<<<<<< Updated upstream
                 android:layout_width="140dp"
                 android:layout_height="67dp"
                 android:layout_gravity="center"
@@ -90,20 +110,37 @@
                 android:padding="5dp"
                 android:text="Percentage of Images seen:"
                 android:textSize="20sp" />
+=======
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:padding="5dp"
+                android:text="Percentage of images seen:"
+                android:gravity="center"
+                android:layout_margin="10sp"
+                android:textSize="25sp"
+                android:fontFamily="@font/anton"
+                android:textColor="@color/brown"/>
+>>>>>>> Stashed changes
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="50"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
-                android:layout_weight="0"
-                android:background="@drawable/border_elements2"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="10 hours"
+<<<<<<< Updated upstream
                 android:textColor="@color/lightSand"
                 android:textSize="20sp" />
+=======
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/brown"
+                android:textSize="25sp" />
+>>>>>>> Stashed changes
 
         </LinearLayout>
 
