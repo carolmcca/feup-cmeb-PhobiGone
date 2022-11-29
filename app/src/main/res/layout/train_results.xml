@@ -47,12 +47,12 @@
 
             <TextView
                 android:id="@+id/numImage"
-                android:layout_width="188dp"
+                android:layout_width="140dp"
                 android:layout_height="67dp"
-                android:padding="5dp"
-                android:text="Number of Images seen:"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
+                android:padding="5dp"
+                android:text="Number of Images seen:"
                 android:textSize="20sp" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:padding="10dp"
                 android:text="10 Images"
                 android:textColor="@color/lightSand"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -83,12 +83,12 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="188dp"
+                android:layout_width="140dp"
                 android:layout_height="67dp"
-                android:padding="5dp"
-                android:text="Percentage of Images seen:"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
+                android:padding="5dp"
+                android:text="Percentage of Images seen:"
                 android:textSize="20sp" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:padding="10dp"
                 android:text="10 hours"
                 android:textColor="@color/lightSand"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -124,13 +124,14 @@
                 android:text="@string/Home" />
 
             <Button
+                android:id="@+id/statsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="20sp"
                 android:layout_marginTop="5sp"
                 android:layout_marginEnd="20sp"
                 android:layout_marginBottom="10sp"
+                android:layout_weight="1"
                 android:text="@string/stats" />
         </LinearLayout>
 
