@@ -1,17 +1,26 @@
 package com.example.phobigone;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import Bio.Library.namespace.BioLib;
 import android.os.Handler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class EvalActivity extends AppCompatActivity {
@@ -25,6 +34,7 @@ public class EvalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eval);
+
 
         /*Init BioLib*/
         try {
@@ -40,12 +50,8 @@ public class EvalActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         String address = dbHelper.getAddress();
 
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
         try {
-            BluetoothDevice deviceToConnect =  lib.mBluetoothAdapter.getRemoteDevice(address);
             lib.Connect(address, 5);
-            lib.Request(address, 30);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),"Error to connect", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
@@ -70,4 +76,5 @@ public class EvalActivity extends AppCompatActivity {
             }
         }
     };
+
 }
