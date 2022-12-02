@@ -44,7 +44,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LevelActivity"
+            android:name=".TrainImagesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".TrainVideosActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

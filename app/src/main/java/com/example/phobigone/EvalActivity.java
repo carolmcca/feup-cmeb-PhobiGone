@@ -35,7 +35,6 @@ public class EvalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eval);
 
-
         /*Init BioLib*/
         try {
             lib = new BioLib (this, mHandler);

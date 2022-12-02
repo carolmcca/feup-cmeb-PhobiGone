@@ -19,14 +19,19 @@ public class TestActivity extends AppCompatActivity {
         Button btLevel3 = findViewById(R.id.bt_level3);
         Button btLevel4 = findViewById(R.id.bt_level4);
 
-        btLevel1.setOnClickListener((View v)->onBtClick(btLevel1.getId()));
-        btLevel2.setOnClickListener((View v)->onBtClick(btLevel2.getId()));
-        btLevel3.setOnClickListener((View v)->onBtClick(btLevel3.getId()));
-        btLevel4.setOnClickListener((View v)->onBtClick(btLevel4.getId()));
+        btLevel1.setOnClickListener((View v)->onBtClick(1));
+        btLevel2.setOnClickListener((View v)->onBtClick(2));
+        btLevel3.setOnClickListener((View v)->onBtClick(3));
+        btLevel4.setOnClickListener((View v)->onBtClick(4));
     }
-    private void onBtClick(int id) {
-        Intent intent = new Intent (this, LevelActivity.class);
-        intent.putExtra("level", id);
+    private void onBtClick(int level) {
+        Intent intent = new Intent();
+        if (level==1 || level==3) {
+            intent = new Intent (this, TrainImagesActivity.class);
+        } else {
+            intent = new Intent(this, TrainVideosActivity.class);
+        }
+        intent.putExtra("level", level);
 
         startActivity(intent);
     }

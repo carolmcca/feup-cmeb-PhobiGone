@@ -126,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bt_train:
                 intent = new Intent(this, TestActivity.class);
                 break;
+                /*
             case R.id.bt_test:
                 intent = new Intent(this, EvalActivity.class);
-                break;
+                break;*/
             case R.id.bt_stats:
                 intent = new Intent(this, StatsActivity.class);
                 break;

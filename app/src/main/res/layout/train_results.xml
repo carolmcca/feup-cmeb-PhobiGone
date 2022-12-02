@@ -62,13 +62,12 @@
                 android:id="@+id/imageSeen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
+                android:layout_weight="50"
+                android:fontFamily="@font/balgin_condensed"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="10 Images"
-                android:fontFamily="@font/balgin_condensed"
                 android:textColor="@color/brown"
                 android:textSize="25sp" />
 
@@ -99,7 +98,7 @@
                 android:textColor="@color/brown"/>
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/imagePercentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
