@@ -35,6 +35,7 @@ public class TrainResultsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     private void onBtStatsClick() {
         Intent intent = new Intent(this, StatsActivity.class);
         startActivity(intent);

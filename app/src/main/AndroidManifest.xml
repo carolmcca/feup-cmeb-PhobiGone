@@ -38,7 +38,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TestActivity"
+            android:name=".TrainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -66,7 +66,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".EvalActivity"
+            android:name=".TestActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".TestImgActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".TestVidActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -74,6 +88,7 @@
         </activity>
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".TrainResultsActivity"></activity>
+        <activity android:name=".TestResultsActivity"></activity>
 
         <receiver android:name=".NotificationPublisher" />
     </application>

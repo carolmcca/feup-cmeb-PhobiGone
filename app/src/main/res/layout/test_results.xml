@@ -45,30 +45,28 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/numImage"
+                android:id="@+id/levelReached"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:padding="5dp"
-                android:text="Number of images seen:"
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
                 android:layout_margin="10sp"
-                android:textSize="25sp"
+                android:layout_weight="50"
                 android:fontFamily="@font/anton"
-                android:textColor="@color/brown"/>
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Level reached:"
+                android:textColor="@color/brown"
+                android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/imageSeen"
+                android:id="@+id/textLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
+                android:layout_weight="50"
+                android:fontFamily="@font/balgin_condensed"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="10 Images"
-                android:fontFamily="@font/balgin_condensed"
                 android:textColor="@color/brown"
                 android:textSize="25sp" />
 
@@ -86,29 +84,29 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/levelReached"
+                android:id="@+id/numImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:padding="5dp"
-                android:text="Level reached:"
+                android:text="Number of images seen:"
                 android:gravity="center"
+                android:layout_gravity="center_vertical"
                 android:layout_margin="10sp"
                 android:textSize="25sp"
                 android:fontFamily="@font/anton"
                 android:textColor="@color/brown"/>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/imageSeen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
+                android:layout_weight="50"
+                android:fontFamily="@font/balgin_condensed"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Level 1"
-                android:fontFamily="@font/balgin_condensed"
                 android:textColor="@color/brown"
                 android:textSize="25sp" />
 
@@ -142,13 +140,12 @@
                 android:id="@+id/imagePercentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
                 android:layout_gravity="center"
                 android:layout_margin="10sp"
+                android:layout_weight="50"
+                android:fontFamily="@font/balgin_condensed"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="10 hours"
-                android:fontFamily="@font/balgin_condensed"
                 android:textColor="@color/brown"
                 android:textSize="25sp" />
 

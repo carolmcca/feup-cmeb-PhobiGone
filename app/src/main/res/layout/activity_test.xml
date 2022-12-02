@@ -1,58 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/levelMenu"
-    android:background="@drawable/facts_background"
-    tools:context=".TestActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/titleTrain"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anton"
-        android:textColor="@color/eggShell"
-        android:textSize="50sp"
-        android:text="TRAIN MENU">
-    </TextView>
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/rr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/bt_level1"
-            android:layout_width="270sp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15sp"
-            android:text="Level 1" />
-
-        <Button
-            android:id="@+id/bt_level2"
-            android:layout_width="270sp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15sp"
-            android:text="Level 2" />
-
-        <Button
-            android:id="@+id/bt_level3"
-            android:layout_width="270sp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15sp"
-            android:text="Level 3" />
-
-        <Button
-            android:id="@+id/bt_level4"
-            android:layout_width="270sp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15sp"
-            android:text="Level 4"/>
-
-    </LinearLayout>
+        android:layout_margin="10sp"
+        android:layout_weight="1"
+        android:nestedScrollingEnabled="true"
+        android:layout_height="100dp"/>
 
 </LinearLayout>

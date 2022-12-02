@@ -124,10 +124,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.bt_train:
-                intent = new Intent(this, TestActivity.class);
+                intent = new Intent(this, TrainActivity.class);
                 break;
             case R.id.bt_test:
-                intent = new Intent(this, EvalActivity.class);
+                intent = new Intent(this, TestImgActivity.class);
+                intent.putExtra("level", 1);
                 break;
             case R.id.bt_stats:
                 intent = new Intent(this, StatsActivity.class);
