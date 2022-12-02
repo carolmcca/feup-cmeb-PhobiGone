@@ -37,10 +37,5 @@
         android:layout_margin="15sp"
         android:text="Fun Facts" />
 
-    <Button
-        android:id="@+id/bt_not"
-        android:layout_width="270sp"
-        android:layout_height="wrap_content"
-        android:layout_margin="15sp"
-        android:text="Notify me" />
+
 </LinearLayout>

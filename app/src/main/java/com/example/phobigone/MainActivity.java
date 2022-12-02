@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        long future = SystemClock.elapsedRealtime() + 5000;
+        //long future = SystemClock.elapsedRealtime() + 5000;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         assert alarmManager != null;
         //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, future, pendingIntent);
@@ -126,10 +126,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bt_train:
                 intent = new Intent(this, TestActivity.class);
                 break;
-                /*
             case R.id.bt_test:
                 intent = new Intent(this, EvalActivity.class);
-                break;*/
+                break;
             case R.id.bt_stats:
                 intent = new Intent(this, StatsActivity.class);
                 break;

@@ -50,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "exp_train_time INTEGER, " +
                 "notifications BOOLEAN, " +
                 "sound BOOLEAN);");
-        db.execSQL("INSERT INTO Setting(id, exp_train_time, notifications, sound) VALUES(1, 15, true, true);");
+        db.execSQL("INSERT INTO Setting(id, exp_train_time, notifications, sound) VALUES(1, 15, 1, 1);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Train( " +
                 "id INTEGER PRIMARY KEY, " +
                 "date TEXT, " +
