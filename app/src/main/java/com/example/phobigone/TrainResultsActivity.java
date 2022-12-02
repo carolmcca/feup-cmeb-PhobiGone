@@ -30,6 +30,7 @@ public class TrainResultsActivity extends AppCompatActivity {
         btHome.setOnClickListener((View v)->onBtHomeClick());
         btStats.setOnClickListener((View v)->onBtStatsClick());
     }
+
     private void onBtHomeClick() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

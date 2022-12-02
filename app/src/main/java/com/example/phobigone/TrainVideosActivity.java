@@ -1,10 +1,12 @@
 package com.example.phobigone;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,20 +24,24 @@ public class TrainVideosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videos);
 
-        VideoView spiderVid = findViewById(R.id.spider_img);
+        VideoView spiderVid = (VideoView) findViewById(R.id.spider_vid);
         Integer level = getIntent().getIntExtra("level", 2);
-        String[] randVids = new String[numVideos];
+        Uri[] randVids = new Uri[numVideos];
 
         Integer i = 0;
         while (i < numVideos) {
             Integer newRand = getRandomNumber(1, totalVideos);
-            String idStr = "android.resource://" + getPackageName() + "/R.raw./level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
-            boolean repeated = Arrays.asList(randVids).contains(idStr);
+            String idStr = "@raw/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
+            Integer id = getResources().getIdentifier(idStr, null, getPackageName());
+            Uri path = Uri.parse("android.resource://" + getPackageName() + "/" + id);
+            boolean repeated = Arrays.asList(randVids).contains(path);
             if (!repeated) {
-                randVids[i] = idStr;
+                randVids[i] = path;
                 i++;
             }
         }
+
+
 
         //"android.resource://" + getPackageName() + "/" + R.raw.video_file;
         final Handler handler = new Handler();
@@ -46,7 +52,8 @@ public class TrainVideosActivity extends AppCompatActivity {
                     endTrain();
                     return;
                 }
-                spiderVid.setVideoPath(randVids[seenVideos]);
+                spiderVid.setVideoURI(randVids[seenVideos]);
+                spiderVid.start();
                 handler.postDelayed(this, delay);  //for interval...
             }
         };

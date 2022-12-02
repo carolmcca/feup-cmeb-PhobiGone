@@ -22,7 +22,7 @@ public class TrainImagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_images);
 
-        ImageView spiderImg = findViewById(R.id.spider_img);
+        ImageView spiderImg = findViewById(R.id.spider_vid);
         Integer level = getIntent().getIntExtra("level", 1);
         Integer[] randImgs = new Integer[numImages];
 
