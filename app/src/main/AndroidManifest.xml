@@ -73,6 +73,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".RelaxActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".TestImgActivity"
             android:exported="false">
             <meta-data

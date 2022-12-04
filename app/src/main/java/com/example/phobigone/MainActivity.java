@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, TrainActivity.class);
                 break;
             case R.id.bt_test:
-                intent = new Intent(this, TestImgActivity.class);
+                intent = new Intent(this, RelaxActivity.class);
                 intent.putExtra("level", 1);
                 break;
             case R.id.bt_stats:

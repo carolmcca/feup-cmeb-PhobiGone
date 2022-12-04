@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class TestImgActivity extends AppCompatActivity {
     static Integer numImages = 6;
-    static Integer delay = 2000;
+    static Integer delay = 10000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
 
@@ -57,7 +57,7 @@ public class TestImgActivity extends AppCompatActivity {
     }
 
     private void nextLevel(Integer level) {
-        Intent intent = new Intent(this, TestVidActivity.class);
+        Intent intent = new Intent(this, RelaxActivity.class);
         intent.putExtra("level", level+1);
         startActivity(intent);
     }

@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class TestVidActivity extends AppCompatActivity {
     static Integer numVideos = 6;
-    static Integer delay = 2000;
+    static Integer delay = 10000;
     static Integer totalVideos = 15;
     Integer seenVideos = -1;
 
@@ -49,7 +49,6 @@ public class TestVidActivity extends AppCompatActivity {
                         nextLevel(level);
                     else
                         endTrain(level);
-
                     return;
                 }
                 spiderVid.setVideoURI(randVids[seenVideos]);
@@ -72,7 +71,7 @@ public class TestVidActivity extends AppCompatActivity {
     }
 
     private void nextLevel(Integer level) {
-        Intent intent = new Intent(this, TestImgActivity.class);
+        Intent intent = new Intent(this, RelaxActivity.class);
         intent.putExtra("level", level+1);
         startActivity(intent);
     }
