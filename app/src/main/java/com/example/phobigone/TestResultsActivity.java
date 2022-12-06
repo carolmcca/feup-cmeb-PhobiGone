@@ -27,7 +27,8 @@ public class TestResultsActivity extends AppCompatActivity {
         imageSeen.setText(String.valueOf((int)(seenContent + numContent*(level-1))) + " Images");
 
         TextView imagePercentage = findViewById(R.id.imagePercentage);
-        imagePercentage.setText(String.valueOf(Math.round((seenContent + numContent*(level-1))/(numLevels*numContent)*100)) + "%");
+        float img_perc = Math.round((seenContent + numContent*(level-1))/(numLevels*numContent)*100);
+        imagePercentage.setText(String.valueOf(img_perc) + "%");
 
         Button btHome = findViewById(R.id.homeButton);
         Button btStats = findViewById(R.id.statsButton);
@@ -35,11 +36,9 @@ public class TestResultsActivity extends AppCompatActivity {
         btHome.setOnClickListener((View v)->onBtHomeClick());
         btStats.setOnClickListener((View v)->onBtStatsClick());
 
-        Button homeBt = findViewById(R.id.homeButton);
-        Button StatsBt = findViewById(R.id.statsButton);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.addTest(level, img_perc);
 
-        btHome.setOnClickListener((View v)->onBtHomeClick());
-        btStats.setOnClickListener((View v)->onBtStatsClick());
     }
 
     private void onBtHomeClick() {

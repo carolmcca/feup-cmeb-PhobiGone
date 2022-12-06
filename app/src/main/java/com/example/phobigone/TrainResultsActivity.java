@@ -8,6 +8,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TrainResultsActivity extends AppCompatActivity {
 
     @Override
@@ -29,6 +35,11 @@ public class TrainResultsActivity extends AppCompatActivity {
 
         btHome.setOnClickListener((View v)->onBtHomeClick());
         btStats.setOnClickListener((View v)->onBtStatsClick());
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.addTrain(seenImages*10/60);
+
+        updateBadges(dbHelper);
     }
 
     private void onBtHomeClick() {
@@ -39,5 +50,44 @@ public class TrainResultsActivity extends AppCompatActivity {
     private void onBtStatsClick() {
         Intent intent = new Intent(this, StatsActivity.class);
         startActivity(intent);
+    }
+
+    private void updateBadges(DatabaseHelper dbHelper) {
+        Integer trainNo = Integer.valueOf(dbHelper.readRowFromTable("SELECT COUNT(*) AS trainNo FROM TRAIN").get(0));
+        Integer streak = Integer.valueOf(dbHelper.readRowFromTable("SELECT streak FROM TRAIN ORDER BY date").get(0));
+
+        Map<Integer, Integer> trainBadgeLimits = new HashMap<Integer, Integer>() {{ put(1, 5); put(2, 10); put(3, 20); }};
+        Map<Integer, Integer> streakBadgeLimits = new HashMap<Integer, Integer>() {{ put(4, 2); put(5, 4); put(6, 8); put(7, 15); put(8, 30); put(9, 60); }};
+
+
+        // Streak badges
+        ArrayList<Integer> keys = new ArrayList(streakBadgeLimits.keySet());
+        Collections.sort(keys);
+
+        for (Integer key : keys) {
+            if (streak < streakBadgeLimits.get(key))
+                streakBadgeLimits.remove(key);
+            else
+                break;
+        }
+        for (Integer badgeId : streakBadgeLimits.keySet()) {
+            dbHelper.earnBadge(badgeId);
+        }
+
+        // Train badges
+
+        keys = new ArrayList(trainBadgeLimits.keySet());
+        Collections.sort(keys);
+
+        for (Integer key : keys) {
+            if (trainNo < trainBadgeLimits.get(key))
+                trainBadgeLimits.remove(key);
+            else
+                break;
+        }
+        for (Integer badgeId : trainBadgeLimits.keySet()) {
+            dbHelper.earnBadge(badgeId);
+        }
+
     }
 }

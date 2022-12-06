@@ -103,6 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("id", badge.get(0));
         contentValues.put("name", badge.get(1));
         contentValues.put("description", badge.get(2));
+        contentValues.put("icon", badge.get(3));
         contentValues.put("earned", 1);
         //Change the state of the badge to conquered on database
         db.replace("Badge", null, contentValues);
@@ -206,10 +207,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public ArrayList<Badge> getEarnedBadges() {
-        List<List<String>> badgesArray = readTableFromDatabase("SELECT name, description, icon FROM Badge WHERE earned = 1;");
+        List<List<String>> badgesArray = readTableFromDatabase("SELECT id, name, description, icon FROM Badge WHERE earned = 1;");
         ArrayList<Badge> badges = new ArrayList();
         for (List<String> badgeArray:badgesArray) {
-            badges.add(new Badge(badgeArray.get(0), badgeArray.get(1), badgeArray.get(2)));
+            badges.add(new Badge(Integer.valueOf(badgeArray.get(0)), badgeArray.get(1), badgeArray.get(2), badgeArray.get(3)));
         }
         return badges;
     }
