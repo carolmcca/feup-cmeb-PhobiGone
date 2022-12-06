@@ -17,6 +17,8 @@ public class TestVidActivity extends AppCompatActivity {
     static Integer delay = 10000;
     static Integer totalVideos = 15;
     Integer seenVideos = -1;
+    private static final double SDRR_THRESHOLD = 0.6;
+    private static final double RMSRR_THRESHOLD = 27.9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,9 @@ public class TestVidActivity extends AppCompatActivity {
         setContentView(R.layout.activity_videos);
 
         VideoView spiderVid = (VideoView) findViewById(R.id.spider_vid);
-        Integer level = getIntent().getIntExtra("level", 2);
+        Intent intent = getIntent();
+        Integer level = intent.getIntExtra("level", 2);
+        MainActivity.btService.resetRr();
         Uri[] randVids = new Uri[numVideos];
 
         Integer i = 0;
@@ -45,7 +49,9 @@ public class TestVidActivity extends AppCompatActivity {
             public void run() {
                 seenVideos++;
                 if (seenVideos > randVids.length - 1) {
-                    if (level==2)
+                    double sdrr = MainActivity.btService.getSDRR();
+                    double rmsrr = MainActivity.btService.getRMSRR();
+                    if (level==2 && sdrr>SDRR_THRESHOLD && rmsrr>RMSRR_THRESHOLD)
                         nextLevel(level);
                     else
                         endTrain(level);

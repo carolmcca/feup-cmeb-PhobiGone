@@ -21,7 +21,6 @@ import java.util.Map;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final Map<String, List<String>> TABLES = new HashMap<String, List<String>>() {{
-        put("Image", Arrays.asList("id", "file_name", "level"));
         put("Setting", Arrays.asList("exp_train_time", "notifications", "sound"));
         put("Train", Arrays.asList("id", "date", "train_time", "streak"));
         put("Test", Arrays.asList("id", "date", "level", "perc_img"));
@@ -39,10 +38,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create all database tables
-        db.execSQL("CREATE TABLE IF NOT EXISTS Image( " +
-                "id INTEGER PRIMARY KEY, " +
-                "file_name TEXT, " +
-                "level INTEGER);");
         db.execSQL("CREATE TABLE IF NOT EXISTS Setting( " +
                 "id INTEGER PRIMARY KEY, " +
                 "device_id TEXT," +
@@ -69,8 +64,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "earned BOOLEAN);");
     }
 
-
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         for (String table : TABLES.keySet()){
@@ -87,15 +80,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Calculate current streak
         Integer streak = calcStreak(date);
         //Insert the new entry onto the database
-        String query = "INSERT INTO Train(date, train_time, streak) VALUES( '" + date + "', " + train_time + ", " + streak + ")";
-        db.execSQL(query);
-    }
-
-
-    //TODO: Just to populate database, remove before submission
-    public void addTrain(String date, float train_time) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Integer streak = calcStreak(date);
         String query = "INSERT INTO Train(date, train_time, streak) VALUES( '" + date + "', " + train_time + ", " + streak + ")";
         db.execSQL(query);
     }

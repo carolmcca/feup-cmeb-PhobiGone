@@ -10,8 +10,6 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Arrays;
-
 public class RelaxActivity extends AppCompatActivity {
     static Integer delay = 10000;
     Integer relaxTimes = -1;
@@ -43,6 +41,7 @@ public class RelaxActivity extends AppCompatActivity {
         btExit.setOnClickListener((View v) -> onBtClick(relax_runnable, relax_handler, level));
     }
 
+    //TODO: test (?)
     private void endTrain(Integer level) {
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", 0);

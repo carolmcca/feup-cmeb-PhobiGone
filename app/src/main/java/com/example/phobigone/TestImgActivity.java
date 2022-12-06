@@ -10,12 +10,15 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class TestImgActivity extends AppCompatActivity {
     static Integer numImages = 6;
     static Integer delay = 10000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
+    private static final double SDRR_THRESHOLD = 0.6;
+    private static final double RMSRR_THRESHOLD = 27.9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class TestImgActivity extends AppCompatActivity {
 
         ImageView spiderImg = findViewById(R.id.spider_vid);
         Integer level = getIntent().getIntExtra("level", 1);
+        MainActivity.btService.resetRr();
         Integer[] randImgs = new Integer[numImages];
 
         Integer i = 0;
@@ -43,7 +47,12 @@ public class TestImgActivity extends AppCompatActivity {
             public void run() {
                 seenImages++;
                 if(seenImages>randImgs.length-1) {
-                    nextLevel(level);
+                    double sdrr = MainActivity.btService.getSDRR();
+                    double rmsrr = MainActivity.btService.getRMSRR();
+                    if (sdrr>SDRR_THRESHOLD && rmsrr>RMSRR_THRESHOLD)
+                        nextLevel(level);
+                    else
+                        endTest(level);
                     return;
                 }
                 spiderImg.setImageResource(randImgs[seenImages]);
@@ -62,13 +71,17 @@ public class TestImgActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void onBtClick(Runnable runnable, Handler handler, Integer level) {
-        handler.removeCallbacks(runnable);
+    private void endTest(Integer level) {
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", seenImages);
         intent.putExtra("numContent", numImages);
         intent.putExtra("level", level);
         startActivity(intent);
+    }
+
+    private void onBtClick(Runnable runnable, Handler handler, Integer level) {
+        handler.removeCallbacks(runnable);
+        endTest(level);
     }
 
     public int getRandomNumber(double min, double max) {
