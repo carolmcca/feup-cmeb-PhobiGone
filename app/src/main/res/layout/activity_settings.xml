@@ -87,7 +87,7 @@
                 android:gravity="center"
                 android:text="Debug"
                 android:textColor="@color/brown"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -119,11 +119,11 @@
                     android:id="@+id/device_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bluetooth device"
+                    android:layout_weight="60"
                     android:fontFamily="@font/balgin_condensed"
+                    android:text="Bluetooth device"
                     android:textColor="@color/darkSand"
-                    android:textSize="20sp"
-                    android:layout_weight="60"/>
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <ListView
