@@ -68,7 +68,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/brown"
-                android:textSize="25sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/brown"
-                android:textSize="25sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 

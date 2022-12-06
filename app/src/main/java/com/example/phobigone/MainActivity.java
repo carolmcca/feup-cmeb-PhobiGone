@@ -27,6 +27,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     public static final String CHANNEL_ID = "phobigone";
+    public static BluetoothService btService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, TrainActivity.class);
                 break;
             case R.id.bt_test:
+                btService = new BluetoothService(getApplicationContext());
+                btService.run();
                 intent = new Intent(this, RelaxActivity.class);
                 intent.putExtra("level", 1);
                 break;
