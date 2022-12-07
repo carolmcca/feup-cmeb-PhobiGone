@@ -51,7 +51,7 @@ public class TestVidActivity extends AppCompatActivity {
                 if (seenVideos > randVids.length - 1) {
                     double sdrr = MainActivity.btService.getSDRR();
                     double rmsrr = MainActivity.btService.getRMSRR();
-                    if (level==2 && sdrr>SDRR_THRESHOLD && rmsrr>RMSRR_THRESHOLD)
+                    if (level==2 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
                         nextLevel(level);
                     else
                         endTrain(level);

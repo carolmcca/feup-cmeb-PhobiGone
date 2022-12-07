@@ -18,7 +18,7 @@ public class BluetoothService implements Serializable {
     /*private List<Long> peak = new ArrayList<>();
     private List<Integer> bpm = new ArrayList<>();
     private List<Integer> bpmi = new ArrayList<>();*/
-    private List<Float> rr = new ArrayList<>();
+    private List<Double> rr = new ArrayList<Double>();
     private final Handler mHandler = new Handler()
     {
         @Override
@@ -29,7 +29,7 @@ public class BluetoothService implements Serializable {
                 /*peak.add(qrs.position);
                 bpmi.add(qrs.bpmi);
                 bpm.add(qrs.bpm);*/
-                rr.add(Float.valueOf(qrs.rr));
+                rr.add((double) qrs.rr);
             }
         }
     };
@@ -63,9 +63,9 @@ public class BluetoothService implements Serializable {
     }
 
     public double getSDRR() {
-        float mean = mean(rr);
+        double mean = mean(rr);
         List diffSquares = new ArrayList();
-        for(Float rr_value : rr) {
+        for(double rr_value : rr) {
             diffSquares.add(Math.pow((rr_value-mean), 2));
         }
         return Math.sqrt(mean(diffSquares));
@@ -73,15 +73,15 @@ public class BluetoothService implements Serializable {
 
     public double getRMSRR() {
         List squares = new ArrayList();
-        for(Float rr_value : rr) {
+        for(double rr_value : rr) {
             squares.add(Math.pow(rr_value, 2));
         }
         return Math.sqrt(mean(squares));
     }
 
-    private float mean(List<Float> list) {
-        float sum = 0;
-        for(Float value : list) {
+    private double mean(List<Double> list) {
+        double sum = 0;
+        for(double value : list) {
             sum += value;
         }
         return sum/rr.size();
