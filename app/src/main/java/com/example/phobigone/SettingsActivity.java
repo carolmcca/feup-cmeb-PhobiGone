@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -34,11 +35,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        List<String> settings = dbHelper.readRowFromTable("SELECT device_name, notifications, sound, exp_train_time FROM Setting;");
-        this.deviceName = settings.get(0);
-        this.notifications = settings.get(1).equals("1");
-        this.sound = settings.get(2).equals("1");
-        this.time = Integer.valueOf(settings.get(3));
+        HashMap<String, String> settings = dbHelper.getSettings();
+        this.deviceName = settings.get("device_name");
+        this.notifications = settings.get("notifications").equals("1");
+        this.sound = settings.get("sound").equals("1");
+        this.time = Integer.valueOf(settings.get("exp_train_time"));
 
         displayDeviceName();
         ListView devicesLv = findViewById(R.id.bluetooth_devices);

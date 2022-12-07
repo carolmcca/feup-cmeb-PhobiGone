@@ -1,19 +1,26 @@
 package com.example.phobigone;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.HashMap;
 
 public class RelaxActivity extends AppCompatActivity {
     static Integer delay = 10000;
     Integer relaxTimes = -1;
     static Integer numVideos = 6;
+    final Handler relax_handler = new Handler();
+    Runnable relax_runnable;
+    Boolean sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +29,16 @@ public class RelaxActivity extends AppCompatActivity {
         VideoView spiderVid = (VideoView) findViewById(R.id.spider_vid);
         Integer level = getIntent().getIntExtra("level", 1);
 
-        final Handler relax_handler = new Handler();
-        Runnable relax_runnable = new Runnable() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        HashMap<String, String> settings = dbHelper.getSettings();
+        sound = settings.get("sound").equals("1");
+
+
+        MediaController mc = new MediaController(this);
+        spiderVid.setMediaController(mc);
+        spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));
+
+        relax_runnable = new Runnable() {
             public void run() {
                 relaxTimes++;
                 if (relaxTimes > 0) {
@@ -41,8 +56,17 @@ public class RelaxActivity extends AppCompatActivity {
         btExit.setOnClickListener((View v) -> onBtClick(relax_runnable, relax_handler, level));
     }
 
+    private void setVolumeControl(MediaPlayer mp) {
+        if(sound) {
+            mp.setVolume(1F, 1F);
+        } else {
+            //Log.d(TAG, "setVolume ON");
+            mp.setVolume(0F, 0F);
+        }
+    }
+
     //TODO: test (?)
-    private void endTrain(Integer level) {
+    private void endTest(Integer level) {
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", 0);
         intent.putExtra("numContent", numVideos);
@@ -52,7 +76,7 @@ public class RelaxActivity extends AppCompatActivity {
 
     private void onBtClick(Runnable runnable, Handler handler, Integer level) {
         handler.removeCallbacks(runnable);
-        endTrain(level);
+        endTest(level);
     }
 
     private void endRelax(Integer level) {
@@ -64,5 +88,11 @@ public class RelaxActivity extends AppCompatActivity {
         }
         intent.putExtra("level", level);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        relax_handler.removeCallbacks(relax_runnable);
+        super.onDestroy();
     }
 }

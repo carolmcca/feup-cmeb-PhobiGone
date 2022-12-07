@@ -214,4 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return badges;
     }
+
+    public HashMap<String, String> getSettings() {
+        List<String> settingsList = readRowFromTable("SELECT device_name, notifications, sound, exp_train_time FROM Setting;");
+        HashMap<String, String> settings = new HashMap<String, String>(){{put("device_name", settingsList.get(0)); put("notifications", settingsList.get(1)); put("sound", settingsList.get(2)); put("exp_train_time", settingsList.get(3));}};
+        return settings;
+    }
 }
