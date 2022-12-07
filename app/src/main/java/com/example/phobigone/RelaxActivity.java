@@ -60,12 +60,10 @@ public class RelaxActivity extends AppCompatActivity {
         if(sound) {
             mp.setVolume(1F, 1F);
         } else {
-            //Log.d(TAG, "setVolume ON");
             mp.setVolume(0F, 0F);
         }
     }
 
-    //TODO: test (?)
     private void endTest(Integer level) {
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", 0);

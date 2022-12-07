@@ -35,7 +35,7 @@ public class TestActivity extends AppCompatActivity {
 
         if (level==1 || level==3) {
             setContentView(R.layout.activity_images);
-            spiderImg = findViewById(R.id.spider_vid);
+            spiderImg = findViewById(R.id.spider_img);
 
             while (i<numImages) {
                 Integer newRand = getRandomNumber(0.5, totalImages+0.5);
