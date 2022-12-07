@@ -69,10 +69,9 @@ public class TestActivity extends AppCompatActivity {
             public void run() {
                 seenImages++;
                 if(seenImages>numImages-1) {
-                    //double sdrr = MainActivity.btService.getSDRR();
-                    //double rmsrr = MainActivity.btService.getRMSRR();
-                    if (level!=4 )
-                        //&& sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD
+                    double sdrr = MainActivity.btService.getSDRR();
+                    double rmsrr = MainActivity.btService.getRMSRR();
+                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
                         nextLevel(level);
                     else
                         endTest(level);
