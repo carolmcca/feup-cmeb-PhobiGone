@@ -49,7 +49,7 @@ public class TestImgActivity extends AppCompatActivity {
                 if(seenImages>randImgs.length-1) {
                     double sdrr = MainActivity.btService.getSDRR();
                     double rmsrr = MainActivity.btService.getRMSRR();
-                    if (sdrr>SDRR_THRESHOLD && rmsrr>RMSRR_THRESHOLD)
+                    if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
                         nextLevel(level);
                     else
                         endTest(level);
