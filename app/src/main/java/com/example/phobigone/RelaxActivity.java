@@ -80,12 +80,9 @@ public class RelaxActivity extends AppCompatActivity {
     }
 
     private void endRelax(Integer level) {
-        Intent intent;
-        if (level==1 || level==3) {
-            intent = new Intent(this, TestImgActivity.class);
-        } else {
-            intent = new Intent(this, TestVidActivity.class);
-        }
+        Intent intent = new Intent(this, TestActivity.class);
+        //intent = new Intent(this, TestVidActivity.class);
+
         intent.putExtra("level", level);
         startActivity(intent);
     }
