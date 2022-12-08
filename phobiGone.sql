@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Train(
 
 CREATE TABLE IF NOT EXISTS Test(
     id INTEGER PRIMARY KEY,
-    date TEXT,
+    date TEXT, 
     level INTEGER,
     perc_img REAL
 );

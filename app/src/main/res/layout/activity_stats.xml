@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@drawable/facts_background"
     android:gravity="center"
@@ -16,12 +16,13 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
+            android:
             android:orientation="horizontal">
 
             <TextView
@@ -36,11 +37,10 @@
 
             <Spinner
                 android:id="@+id/spinnerOptions"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0"
                 android:width="3dp"
-                android:entries="@array/dias"
+                android:entries="@array/options"
                 android:theme="@style/spinnerTheme" />
         </LinearLayout>
 
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Evolution Level"
+                android:text="@string/evolLevel"
                 android:textColor="#795548"
                 android:textSize="20sp" />
 
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Training Time"
+                android:text="@string/trainTime"
                 android:textSize="20sp" />
 
             <com.jjoe64.graphview.GraphView
