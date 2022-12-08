@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TrainImagesActivity extends AppCompatActivity {
-    static Integer numImages = 10;
+    static Integer numImages = 6;
     static Integer delay = 2000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
@@ -41,7 +41,7 @@ public class TrainImagesActivity extends AppCompatActivity {
             spiderImg = findViewById(R.id.spider_img);
             while (i<numImages) {
                 Integer newRand = getRandomNumber(0.5, totalImages+0.5);
-                String idStr = "@drawable/level" + String.valueOf(level) + "_test_" + String.valueOf(newRand);
+                String idStr = "@drawable/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
                 Integer id = getResources().getIdentifier(idStr, null, getPackageName());
                 boolean repeated = Arrays.asList(randImgs).contains(id);
                 if (!repeated) {
@@ -62,7 +62,7 @@ public class TrainImagesActivity extends AppCompatActivity {
 
             while (i < numImages) {
                 Integer newRand = getRandomNumber(1, totalImages);
-                String idStr = "@raw/level" + String.valueOf(level) + "_test_" + String.valueOf(newRand);
+                String idStr = "@raw/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
                 Integer id = getResources().getIdentifier(idStr, null, getPackageName());
                 Uri path = Uri.parse("android.resource://" + getPackageName() + "/" + id);
                 boolean repeated = Arrays.asList(randVids).contains(path);
