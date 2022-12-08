@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/sand"
-    tools:context=".TrainVideosActivity">
+    tools:context=".TrainImagesActivity">
 
     <VideoView
         android:id="@+id/spider_vid"

@@ -33,7 +33,6 @@ public class RelaxActivity extends AppCompatActivity {
         HashMap<String, String> settings = dbHelper.getSettings();
         sound = settings.get("sound").equals("1");
 
-
         MediaController mc = new MediaController(this);
         spiderVid.setMediaController(mc);
         spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));

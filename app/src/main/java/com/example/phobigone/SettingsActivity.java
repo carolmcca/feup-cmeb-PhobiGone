@@ -46,7 +46,6 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayList<Badge> devicesForm = new ArrayList<>();
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-
         if (mBluetoothAdapter != null)
         {
             if (mBluetoothAdapter.isEnabled())

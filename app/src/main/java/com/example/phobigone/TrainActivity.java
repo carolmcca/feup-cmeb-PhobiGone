@@ -25,14 +25,8 @@ public class TrainActivity extends AppCompatActivity {
         btLevel4.setOnClickListener((View v)->onBtClick(4));
     }
     private void onBtClick(int level) {
-        Intent intent = new Intent();
-        if (level==1 || level==3) {
-            intent = new Intent (this, TrainImagesActivity.class);
-        } else {
-            intent = new Intent(this, TrainVideosActivity.class);
-        }
+        Intent intent = new Intent(this, TrainImagesActivity.class);
         intent.putExtra("level", level);
-
         startActivity(intent);
     }
 
