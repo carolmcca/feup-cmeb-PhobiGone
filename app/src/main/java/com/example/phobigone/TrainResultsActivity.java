@@ -23,12 +23,35 @@ public class TrainResultsActivity extends AppCompatActivity {
 
         Integer seenImages = getIntent().getIntExtra("seenImages", 0);
         Double numImages = (double) getIntent().getIntExtra("numImages", 1);
+        Integer level = getIntent().getIntExtra("level", 1);
 
         TextView imageSeen = findViewById(R.id.imageSeen);
         imageSeen.setText(String.valueOf(seenImages) + " Images");
 
         TextView imagePercentage = findViewById(R.id.imagePercentage);
-        imagePercentage.setText(String.valueOf(Math.round(seenImages/numImages*100)) + "%");
+        float img_perc = Math.round(seenImages/numImages*100);
+        imagePercentage.setText(String.valueOf(img_perc) + "%");
+
+        TextView congratsMsg = findViewById(R.id.congrats_msg);
+        if (img_perc < 25) {
+            if (level!=1) {
+                congratsMsg.setText("Try to go down a level!");
+            }
+            else {
+                congratsMsg.setText("You need to train harder!");
+            }
+        }
+        else if (img_perc < 100) {
+            congratsMsg.setText("You can do better!");
+        }
+        else {
+            if (level!=4) {
+                congratsMsg.setText("Step up to the next level!");
+            }
+            else {
+                congratsMsg.setText("Try a full test session!");
+            }
+        }
 
         Button btHome = findViewById(R.id.homeButton);
         Button btStats = findViewById(R.id.statsButton);

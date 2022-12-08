@@ -1,20 +1,23 @@
 package com.example.phobigone;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class TrainImagesActivity extends AppCompatActivity {
-    static Integer numImages = 6;
+    static Integer numImages = 10;
     static Integer delay = 2000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
@@ -22,12 +25,14 @@ public class TrainImagesActivity extends AppCompatActivity {
     Uri[] randVids = new Uri[numImages];
     ImageView spiderImg;
     VideoView spiderVid;
+    Integer level;
+    Boolean sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Integer level = getIntent().getIntExtra("level", 1);
+        level = getIntent().getIntExtra("level", 1);
         Integer[] randImgs = new Integer[numImages];
         Integer i = 0;
 
@@ -47,6 +52,13 @@ public class TrainImagesActivity extends AppCompatActivity {
         } else {
             setContentView(R.layout.activity_videos);
             spiderVid = (VideoView) findViewById(R.id.spider_vid);
+
+            DatabaseHelper dbHelper = new DatabaseHelper(this);
+            HashMap<String, String> settings = dbHelper.getSettings();
+            sound = settings.get("sound").equals("1");
+            MediaController mc = new MediaController(this);
+            spiderVid.setMediaController(mc);
+            spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));
 
             while (i < numImages) {
                 Integer newRand = getRandomNumber(1, totalImages);
@@ -85,10 +97,19 @@ public class TrainImagesActivity extends AppCompatActivity {
         btExit.setOnClickListener((View v)->onBtClick(runnable, handler));
     }
 
+    private void setVolumeControl(MediaPlayer mp) {
+        if(sound) {
+            mp.setVolume(1F, 1F);
+        } else {
+            mp.setVolume(0F, 0F);
+        }
+    }
+
     private void endTrain() {
         Intent intent = new Intent(this, TrainResultsActivity.class);
         intent.putExtra("seenImages", seenImages);
         intent.putExtra("numImages", numImages);
+        intent.putExtra("level", level);
         startActivity(intent);
     }
 

@@ -2,6 +2,9 @@ package com.example.phobigone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,6 +27,20 @@ public class TrainActivity extends AppCompatActivity {
         btLevel3.setOnClickListener((View v)->onBtClick(3));
         btLevel4.setOnClickListener((View v)->onBtClick(4));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        new MenuInflater(this).inflate(R.menu.main, menu);
+        return (super.onCreateOptionsMenu(menu));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+        return(super.onOptionsItemSelected(item));
+    }
+
     private void onBtClick(int level) {
         Intent intent = new Intent(this, TrainImagesActivity.class);
         intent.putExtra("level", level);

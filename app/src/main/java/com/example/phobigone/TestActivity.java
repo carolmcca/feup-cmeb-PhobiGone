@@ -1,17 +1,20 @@
 package com.example.phobigone;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class TestActivity extends AppCompatActivity {
     static Integer numImages = 6;
@@ -24,6 +27,7 @@ public class TestActivity extends AppCompatActivity {
     Uri[] randVids = new Uri[numImages];
     ImageView spiderImg;
     VideoView spiderVid;
+    Boolean sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,13 @@ public class TestActivity extends AppCompatActivity {
             setContentView(R.layout.activity_videos);
             spiderVid = (VideoView) findViewById(R.id.spider_vid);
 
+            DatabaseHelper dbHelper = new DatabaseHelper(this);
+            HashMap<String, String> settings = dbHelper.getSettings();
+            sound = settings.get("sound").equals("1");
+            MediaController mc = new MediaController(this);
+            spiderVid.setMediaController(mc);
+            spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));
+
             while (i < numImages) {
                 Integer newRand = getRandomNumber(1, totalImages);
                 String idStr = "@raw/level" + String.valueOf(level) + "_test_" + String.valueOf(newRand);
@@ -69,9 +80,10 @@ public class TestActivity extends AppCompatActivity {
             public void run() {
                 seenImages++;
                 if(seenImages>numImages-1) {
-                    double sdrr = MainActivity.btService.getSDRR();
-                    double rmsrr = MainActivity.btService.getRMSRR();
-                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
+                    //double sdrr = MainActivity.btService.getSDRR();
+                    //double rmsrr = MainActivity.btService.getRMSRR();
+                    if (level!=4)
+                        //&& sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD
                         nextLevel(level);
                     else
                         endTest(level);
@@ -91,6 +103,14 @@ public class TestActivity extends AppCompatActivity {
 
         Button btExit = findViewById(R.id.bt_exit);
         btExit.setOnClickListener((View v)->onBtClick(runnable, handler, level));
+    }
+
+    private void setVolumeControl(MediaPlayer mp) {
+        if(sound) {
+            mp.setVolume(1F, 1F);
+        } else {
+            mp.setVolume(0F, 0F);
+        }
     }
 
     private void nextLevel(Integer level) {

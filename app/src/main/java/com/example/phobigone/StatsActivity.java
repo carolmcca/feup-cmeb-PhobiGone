@@ -1,6 +1,10 @@
 package com.example.phobigone;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,23 +43,37 @@ public class StatsActivity extends AppCompatActivity {
         spinnerOptions.setOnItemClickListener(this::onItemClick);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        new MenuInflater(this).inflate(R.menu.main, menu);
+        return (super.onCreateOptionsMenu(menu));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+        return(super.onOptionsItemSelected(item));
+    }
+
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
         // Select dates chosen
         // FROM DATABASE
         // SELECT date, train_time FROM Train WHERE date>DATA DA OPÇÃO
 
         GraphView numDailyHoursGraph=findViewById(R.id.hoursGraph);
-        GraphView levelEvolutionGraph=findViewById(R.id.levelEvol);
-        GraphView trainTimeGraph=findViewById(R.id.trainTime);
+        //GraphView levelEvolutionGraph=findViewById(R.id.levelEvol);
+        //GraphView trainTimeGraph=findViewById(R.id.trainTime);
 
-        DatabaseHelper database=new DatabaseHelper("phobiGone.db");
+        //DatabaseHelper database=new DatabaseHelper("phobiGone.db");
         //View chosen option
         String chosenOption = view.toString();
 
         String fromdate="0000/00/00";
-        String queryTrain ="SELECT date AS totalTrain FROM Train GROUP BY date WHERE date>"
-        String queryTrain ="SELECT date AS totalTrain FROM Train GROUP BY date WHERE date>"
-        String queryTest ="SELECT date AS totalTrain FROM Train GROUP BY date WHERE date>"
+        //String queryTrain ="SELECT date AS totalTrain FROM Train GROUP BY date WHERE date>"
+        //String queryTrain ="SELECT date AS totalTrain FROM Train GROUP BY date WHERE date>"
+        //String queryTest ="SELECT date AS totalTrain FROM Train GROUP BY date WHERE date>"
         int numDays=0;
         switch(chosenOption) {
             case "Last 30 Days":
@@ -65,14 +83,14 @@ public class StatsActivity extends AppCompatActivity {
                 fromdate=getDateToCheckFrom(7);
                 break;
         }
-        queryTrain += fromdate;
+        //queryTrain += fromdate;
 
-        List<List<String>> trainingData
+        List<List<String>> trainingData;
         // Get Expected Training Time
-        List<String> expTrainTimeStr= database.readRowFromTable("SELECT exp_train_time FROM Setting")
-        int expTrainTime= Integer.parseInt( expTrainTimeStr.get(0));
+        //List<String> expTrainTimeStr= database.readRowFromTable("SELECT exp_train_time FROM Setting")
+        //int expTrainTime= Integer.parseInt( expTrainTimeStr.get(0));
 
-        DataPoint [] baseline = getLineOfExpTrainTime(values.size(),expTrainTime);
+        //DataPoint [] baseline = getLineOfExpTrainTime(values.size(),expTrainTime);
     }
     private DataPoint[] getLineOfExpTrainTime(int size,int value) {
         // size- number of Days

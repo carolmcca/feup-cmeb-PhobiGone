@@ -22,7 +22,6 @@
             android:layout_marginTop="20sp"
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:
             android:orientation="horizontal">
 
             <TextView
