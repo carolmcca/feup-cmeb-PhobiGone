@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.HashMap;
 
 public class RelaxActivity extends AppCompatActivity {

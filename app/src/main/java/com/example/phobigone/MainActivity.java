@@ -2,20 +2,13 @@ package com.example.phobigone;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -125,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.bt_train:
-                intent = new Intent(this, TrainActivity.class);
+                intent = new Intent(this, LevelActivity.class);
                 break;
             case R.id.bt_test:
                 btService = new BluetoothService(getApplicationContext());

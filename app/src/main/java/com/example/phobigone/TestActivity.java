@@ -10,9 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Arrays;
 import java.util.HashMap;
 

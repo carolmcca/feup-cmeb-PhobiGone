@@ -38,14 +38,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TrainActivity"
+            android:name=".LevelActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".TrainImagesActivity"
+            android:name=".TrainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

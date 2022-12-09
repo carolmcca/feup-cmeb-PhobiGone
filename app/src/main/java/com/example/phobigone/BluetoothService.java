@@ -3,10 +3,8 @@ package com.example.phobigone;
 import android.content.Context;
 import android.os.Message;
 import android.widget.Toast;
-
 import Bio.Library.namespace.BioLib;
 import android.os.Handler;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -12,9 +12,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;

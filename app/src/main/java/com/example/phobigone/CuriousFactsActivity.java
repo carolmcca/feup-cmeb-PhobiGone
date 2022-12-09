@@ -3,21 +3,14 @@ package com.example.phobigone;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CuriousFactsActivity extends AppCompatActivity {
@@ -28,7 +21,7 @@ public class CuriousFactsActivity extends AppCompatActivity {
         put(R.id.fact1, R.string.fact1);
         put(R.id.fact2, R.string.fact2);
         put(R.id.fact3, R.string.fact3);
-        put(R.id.fact4, R.string.fact1);}};
+        put(R.id.fact4, R.string.fact4);}};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
