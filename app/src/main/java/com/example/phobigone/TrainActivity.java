@@ -19,7 +19,6 @@ public class TrainActivity extends AppCompatActivity {
     static Integer delay = 2000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
-    Integer[] randImgs = new Integer[numImages];
     Uri[] randVids = new Uri[numImages];
     ImageView spiderImg;
     VideoView spiderVid;
