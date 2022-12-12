@@ -57,6 +57,7 @@ public class TrainActivity extends AppCompatActivity {
             MediaController mc = new MediaController(this);
             spiderVid.setMediaController(mc);
             spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));
+            mc.hide();
 
             while (i < numImages) {
                 Integer newRand = getRandomNumber(1, totalImages);

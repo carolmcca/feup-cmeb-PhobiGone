@@ -59,6 +59,7 @@ public class TestActivity extends AppCompatActivity {
             MediaController mc = new MediaController(this);
             spiderVid.setMediaController(mc);
             spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));
+            mc.hide();
 
             while (i < numImages) {
                 Integer newRand = getRandomNumber(1, totalImages);
@@ -78,13 +79,14 @@ public class TestActivity extends AppCompatActivity {
             public void run() {
                 seenImages++;
                 if(seenImages>numImages-1) {
-                    //double sdrr = MainActivity.btService.getSDRR();
-                    //double rmsrr = MainActivity.btService.getRMSRR();
-                    if (level!=4)
-                        //&& sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD
+                    double sdrr = MainActivity.btService.getSDRR();
+                    double rmsrr = MainActivity.btService.getRMSRR();
+                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
                         nextLevel(level);
+                    else if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
+                        endTest(level, true);
                     else
-                        endTest(level);
+                        endTest(level, false);
                     return;
                 }
 
@@ -117,17 +119,18 @@ public class TestActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void endTest(Integer level) {
+    private void endTest(Integer level, boolean onStress) {
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", seenImages);
         intent.putExtra("numContent", numImages);
         intent.putExtra("level", level);
+        intent.putExtra("onStress", onStress);
         startActivity(intent);
     }
 
     private void onBtClick(Runnable runnable, Handler handler, Integer level) {
         handler.removeCallbacks(runnable);
-        endTest(level);
+        endTest(level, false);
     }
 
     public int getRandomNumber(double min, double max) {

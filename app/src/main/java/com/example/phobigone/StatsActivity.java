@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
@@ -70,8 +72,8 @@ public class StatsActivity extends AppCompatActivity {
                 LineGraphSeries<DataPoint> baselineSeries = new LineGraphSeries<>(baseline);
                 trainSeries.setTitle("Your Trains");
                 baselineSeries.setTitle("Your Goal");
-                trainSeries.setColor(Color.BLUE);
-                baselineSeries.setColor(Color.RED);
+                trainSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
+                baselineSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.darkBrown));
 
                 numDailyHoursGraph.getLegendRenderer().setVisible(true);
                 numDailyHoursGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -87,7 +89,7 @@ public class StatsActivity extends AppCompatActivity {
 
                 LineGraphSeries<DataPoint> levelSeries = new LineGraphSeries<>(level);
                 levelSeries.setTitle("Your Level");
-                levelSeries.setColor(Color.GREEN);
+                levelSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
                 levelSeries.setDrawDataPoints(true);
                 levelSeries.setDataPointsRadius(10f);
 

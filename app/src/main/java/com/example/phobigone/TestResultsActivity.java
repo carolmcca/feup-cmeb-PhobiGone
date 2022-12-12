@@ -15,9 +15,11 @@ public class TestResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_results);
 
-        Integer seenContent = getIntent().getIntExtra("seenContent", 0);
-        Double numContent = (double) getIntent().getIntExtra("numContent", 1);
-        Integer level = getIntent().getIntExtra("level", 1);
+        Intent intent = getIntent();
+        Integer seenContent = intent.getIntExtra("seenContent", 0);
+        Double numContent = (double) intent.getIntExtra("numContent", 1);
+        Integer level = intent.getIntExtra("level", 1);
+        boolean onStress = intent.getBooleanExtra("onStress", false);
 
         TextView imageSeen = findViewById(R.id.imageSeen);
         imageSeen.setText(String.valueOf((int)(seenContent + numContent*(level-1))) + " Images");
@@ -27,24 +29,24 @@ public class TestResultsActivity extends AppCompatActivity {
         imagePercentage.setText(String.valueOf(img_perc) + "%");
 
         TextView textLevel = findViewById(R.id.textLevel);
-        if (img_perc != 100) {
-            textLevel.setText("Level " + String.valueOf(level));
+        if (img_perc==100 && !onStress) {
+            textLevel.setText("Legend!");
         }
         else {
-            textLevel.setText("Legend!");
+            textLevel.setText("Level " + String.valueOf(level));
         }
 
         TextView congratsMsg = findViewById(R.id.congrats_msg);
-        if (img_perc < 25) {
+        if (img_perc <= 25) {
             congratsMsg.setText("You need to train harder!");
         }
-        else if (img_perc < 50) {
+        else if (img_perc <= 50) {
             congratsMsg.setText("You can do better!");
         }
-        else if (img_perc < 75) {
+        else if (img_perc <= 75) {
             congratsMsg.setText("You should be proud!");
         }
-        else if (img_perc < 100) {
+        else if (img_perc < 100 || img_perc == 100 && onStress) {
             congratsMsg.setText("You are almost fearless!");
         }
         else {
