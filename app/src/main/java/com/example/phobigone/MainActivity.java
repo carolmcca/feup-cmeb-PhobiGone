@@ -122,15 +122,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bt_test:
                 btService = new BluetoothService(getApplicationContext());
-                btService.run();
-                intent = new Intent(this, RelaxActivity.class);
-                intent.putExtra("level", 1);
+                intent = new Intent(this, VitalJacketInfoActivity.class);
                 break;
             case R.id.bt_stats:
                 intent = new Intent(this, StatsActivity.class);
                 break;
-            default:
+            case R.id.bt_facts:
                 intent = new Intent(this, CuriousFactsActivity.class);
+                break;
+            default:
+                intent = new Intent(this, MainActivity.class);
+                break;
         }
 
         startActivity(intent);

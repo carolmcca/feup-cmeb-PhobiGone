@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/facts_background"
+    android:gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:gravity="center">
+
+        <TextView
+            android:id="@+id/titleSetup"
+            style="@style/titles"
+            android:text="BEFORE STARTING...">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/eggShell_75"
+            android:orientation="vertical"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/subtitleConnect"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/brown"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:text="Vital Jacket Connection">
+            </TextView>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="26sp"
+                android:text="Please confirm that:">
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list1" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="24sp"
+                android:text="The bluetooth of this device is ON">
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list2" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="24sp"
+                android:text="The blueteooth name of your Vital Jacket is setted on the Settings page">
+            </TextView>
+
+            <TextView
+                android:id="@+id/subtitleUse"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/brown"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:text="Vital Jacket Usage">
+            </TextView>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="26sp"
+                android:text="Before putting on your Vital Jacket t-shirt:">
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list1" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="24sp"
+                android:text="Certify that the bluetooth unit is connected to the shirt by the cable on the pocket">
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list2" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="24sp"
+                android:text="Connect new eletrodes to the probes (you should discard them at the end of the test)">
+            </TextView>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="26sp"
+                android:text="After putting on your Vital Jacket t-shirt:">
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list1" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/balgin_condensed"
+                android:textColor="@color/darkSand"
+                android:textSize="24sp"
+                android:text="Remove the plastic protections and place the electrodes on you upper body as described on the image">
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/electrodes" />
+
+            <Button
+                android:id="@+id/startTestBtn"
+                android:layout_width="270sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="Start Test" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+

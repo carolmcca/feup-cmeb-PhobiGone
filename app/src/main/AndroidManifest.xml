@@ -18,6 +18,13 @@
         android:theme="@style/Theme.PhobiGone"
         tools:targetApi="31">
         <activity
+            android:name=".VitalJacketInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CuriousFactsActivity"
             android:exported="false">
             <meta-data
@@ -72,9 +79,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".TrainResultsActivity"></activity>
-        <activity android:name=".TestResultsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".TrainResultsActivity" />
+        <activity android:name=".TestResultsActivity" />
 
         <receiver android:name=".NotificationPublisher" />
     </application>

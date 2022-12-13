@@ -22,4 +22,13 @@
         <item name="android:layout_marginBottom">10sp</item>
 
     </style>
+    <style name="titles">
+        <item name="android:layout_marginHorizontal">20dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/anton</item>
+        <item name="android:textColor">@color/eggShell</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:layout_gravity">left</item>
+    </style>
 </resources>
