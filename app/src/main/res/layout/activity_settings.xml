@@ -16,6 +16,11 @@
         tools:context=".MainActivity"
         tools:gravity="center">
 
+        <TextView
+            android:id="@+id/titleSettings"
+            style="@style/titles"
+            android:text="SETTINGS">
+        </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
