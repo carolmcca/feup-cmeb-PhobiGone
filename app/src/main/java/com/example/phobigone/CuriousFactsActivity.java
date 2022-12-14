@@ -28,10 +28,11 @@ public class CuriousFactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curious_facts);
 
+        //Set the onClick listeners to all the layout buttons
         for (Integer id : FACTS_BY_BUTTON_ID.keySet()){
 
             AppCompatButton button = findViewById(id);
-
+            //Create a dialog window with the corresponding fact when a button is clicked
             button.setOnClickListener(vw -> {
                 createNewDialogWindow(FACTS_BY_BUTTON_ID.get(vw.getId()));
             });
@@ -51,11 +52,12 @@ public class CuriousFactsActivity extends AppCompatActivity {
         return(super.onOptionsItemSelected(item));
     }
 
-
+    //Create a dialog window with the text with id textId
     private void createNewDialogWindow(Integer textId){
         dialogBuilder = new AlertDialog.Builder(this);
         final View factPopUpView = getLayoutInflater().inflate(R.layout.fact_pop_up, null);
 
+        //Set the dialog window display and text and show it
         dialogBuilder.setView(factPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();

@@ -33,15 +33,4 @@ public class Badge {
 
     public Integer getId() { return id; }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

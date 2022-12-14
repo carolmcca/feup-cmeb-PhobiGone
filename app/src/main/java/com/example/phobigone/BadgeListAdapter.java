@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class BadgeListAdapter extends ArrayAdapter<Badge> {
-    private static final String TAG = "BadgeListAdapter";
     private Context mContext;
     int mResource;
 

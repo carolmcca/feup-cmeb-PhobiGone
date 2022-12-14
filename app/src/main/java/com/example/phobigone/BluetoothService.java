@@ -12,21 +12,14 @@ import java.util.List;
 public class BluetoothService implements Serializable {
     private BioLib lib = null;
     private Context appContext;
-    //TODO: remove this
-    /*private List<Long> peak = new ArrayList<>();
-    private List<Integer> bpm = new ArrayList<>();
-    private List<Integer> bpmi = new ArrayList<>();*/
-    private List<Double> rr = new ArrayList<Double>();
+    private List<Double> rr = new ArrayList();
+    //Handles bluetooth messages from Vital Jacket (adds the incoming rr to the ArrayList rr)
     private final Handler mHandler = new Handler()
     {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == BioLib.MESSAGE_PEAK_DETECTION) {
                 BioLib.QRS qrs = (BioLib.QRS)msg.obj;
-                //TODO:remove this
-                /*peak.add(qrs.position);
-                bpmi.add(qrs.bpmi);
-                bpm.add(qrs.bpm);*/
                 rr.add((double) qrs.rr);
             }
         }
@@ -38,7 +31,7 @@ public class BluetoothService implements Serializable {
     }
 
     public void run() {
-        /*Init BioLib*/
+        //Init BioLib
         try {
             lib = new BioLib (appContext, mHandler);
             Toast.makeText(appContext,"Init BioLib", Toast.LENGTH_SHORT).show();
@@ -48,11 +41,11 @@ public class BluetoothService implements Serializable {
             e.printStackTrace();
         }
 
-        /*Connect to VitalJacket*/
+        //Connect to VitalJacket
         DatabaseHelper dbHelper = new DatabaseHelper(appContext);
         String address = dbHelper.getAddress();
         try {
-            lib.Connect(address, 5);
+            lib.Connect(address, 1);
             Toast.makeText(appContext,"Connected", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(appContext,"Error to connect", Toast.LENGTH_SHORT).show();
@@ -60,6 +53,7 @@ public class BluetoothService implements Serializable {
         }
     }
 
+    //Get the SDRR (called at the end of each test level)
     public double getSDRR() {
         double mean = mean(rr);
         List diffSquares = new ArrayList();
@@ -69,6 +63,7 @@ public class BluetoothService implements Serializable {
         return Math.sqrt(mean(diffSquares));
     }
 
+    //Get the RMSRR (called at the end of each test level)
     public double getRMSRR() {
         List squares = new ArrayList();
         for(double rr_value : rr) {
@@ -77,6 +72,7 @@ public class BluetoothService implements Serializable {
         return Math.sqrt(mean(squares));
     }
 
+    //Calculate the mean of the values on a List
     private double mean(List<Double> list) {
         double sum = 0;
         for(double value : list) {
@@ -85,6 +81,7 @@ public class BluetoothService implements Serializable {
         return sum/rr.size();
     }
 
+    //Delete all elements on the rr List (called in the beginning of each level)
     public void resetRr() {
         this.rr.clear();
     }
