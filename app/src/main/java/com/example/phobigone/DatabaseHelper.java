@@ -32,9 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Create all database tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create all database tables
         db.execSQL("CREATE TABLE IF NOT EXISTS Setting( " +
                 "id INTEGER PRIMARY KEY, " +
                 "device_id TEXT," +
@@ -61,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "earned BOOLEAN);");
     }
 
+    //Drop all tables on upgrade
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         for (String table : TABLES.keySet()){
@@ -68,6 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Add new train entry to database
     public void addTrain(float train_time) {
         //Get current date
         LocalDate localDate = LocalDate.now();
@@ -81,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    //Add new test entry to database
     public void addTest(Integer level, float perc_img) {
         //Get current date
         LocalDate localDate = LocalDate.now();
@@ -92,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    //Set the badge with id id to earned on the database
     public void earnBadge(Integer id) {
         //Get database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -106,6 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.replace("Badge", null, contentValues);
     }
 
+    //Replace the settings currently on the database by the ones passed as arguments
     public void saveSettings(String device_id, String device_name, boolean notifications, boolean sound, Integer time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
@@ -118,26 +123,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.replace("Setting", null, content);
     }
 
+    //Calculate the streak on day date
     private Integer calcStreak(String date) {
+        //Get day from date
         Integer day = Integer.valueOf(date.substring(8));
+        //Get the streak of the last entry of train on the table and the corresponding date
         List<String> data = readRowFromTable("SELECT date, streak FROM Train ORDER BY date DESC;");
         Integer streak = 1;
         if (data.size()!=0) {
             Integer dbDay = Integer.valueOf(data.get(0).substring(8));
+            //If the last training session was today, the streak is the same
             if (dbDay == day) {
                 streak = Integer.valueOf(data.get(1));
             }
+            //If today is the first day of the month
             else if (day == 1) {
+                //Calculate last month
                 Integer lastMonth = (Integer.valueOf(date.substring(5, 7)) - 2 + 12) % 12 + 1;
+                //Get current year
                 Integer year = Integer.valueOf(date.substring(0, 4));
+                //Get month and year of the last train entry
                 Integer dbMonth = Integer.valueOf(data.get(0).substring(5, 7));
                 Integer dbYear = Integer.valueOf(data.get(0).substring(0, 4));
+                //Get number of days on the last month
                 YearMonth yearMonth = YearMonth.of(year, lastMonth);
                 int daysInLastMonth = yearMonth.lengthOfMonth();
 
+                //If the day on the database is the day before current day
                 if (dbDay.equals(daysInLastMonth) && dbMonth.equals(lastMonth) && ((lastMonth.equals(12) && dbYear.equals(year-1))||(!lastMonth.equals(12) && year.equals(dbYear))))
                     streak = Integer.valueOf(data.get(1)) + 1;
             }
+            //If the day on the database is the day before current day
             else if (dbDay == day - 1) {
                 streak = Integer.valueOf(data.get(1)) + 1;
             }
@@ -162,6 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    //Read one row from the table defined on the query
     public List<String> readRowFromTable(String query){
         SQLiteDatabase db = this.getReadableDatabase();
         List<String> data = new ArrayList<>();
@@ -179,6 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    //Read multiple rows from the table defined on the query
     public List<List<String>> readTableFromDatabase(String query) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<List<String>> data = new ArrayList<>();
@@ -198,11 +216,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    //Get bluetooth address from the Settings table
     public String getAddress() {
         return readRowFromTable("SELECT device_id FROM Setting;").get(0);
     }
 
-
+    //Get all earned badges
     public ArrayList<Badge> getEarnedBadges() {
         List<List<String>> badgesArray = readTableFromDatabase("SELECT id, name, description, icon FROM Badge WHERE earned = 1;");
         ArrayList<Badge> badges = new ArrayList();
@@ -212,6 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return badges;
     }
 
+    //Get all settings from the Settings table
     public HashMap<String, String> getSettings() {
         List<String> settingsList = readRowFromTable("SELECT device_name, notifications, sound, exp_train_time FROM Setting;");
         HashMap<String, String> settings = new HashMap<String, String>(){{put("device_name", settingsList.get(0)); put("notifications", settingsList.get(1)); put("sound", settingsList.get(2)); put("exp_train_time", settingsList.get(3));}};
