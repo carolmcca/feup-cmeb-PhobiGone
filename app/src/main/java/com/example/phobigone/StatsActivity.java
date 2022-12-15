@@ -202,7 +202,6 @@ public class StatsActivity extends AppCompatActivity {
         // numDays - number of days to present day to check from
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1*numDays);
         Date toDate = cal.getTime();

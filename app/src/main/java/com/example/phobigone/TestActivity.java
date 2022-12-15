@@ -177,7 +177,7 @@ public class TestActivity extends AppCompatActivity {
         return (int) Math.round((Math.random() * (max - min)) + min);
     }
 
-    // when the user clicks on the back button, the paralel threads are removed
+    // when the user clicks on the back butto\n, the paralel threads are removed
     @Override
     protected void onDestroy() {
         handler.removeCallbacks(runnable);
