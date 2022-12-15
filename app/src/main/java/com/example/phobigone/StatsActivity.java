@@ -182,7 +182,7 @@ public class StatsActivity extends AppCompatActivity {
         Integer filledPoints = 0;
         for (int point = 0; point < size; point++){
             // SQL Query gets a list of strings with the average level reached each day
-            List <String> test_level = dbHelper.readRowFromTable("SELECT AVG(level) FROM Test WHERE date='" + fromdate + "'");
+            List <String> test_level = dbHelper.readRowFromTable("SELECT AVG(level) FROM Test WHERE date='" + fromDate + "'");
 
             if (test_level.get(0) != null) {
                 daily_level = Float.valueOf(test_level.get(0));
