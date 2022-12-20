@@ -158,7 +158,7 @@ public class StatsActivity extends AppCompatActivity {
         float daily_time;
         DataPoint[] dataPoints = new DataPoint[size];
         for (int point = 0; point < size; point++){
-            List <String> train_time = dbHelper.readRowFromTable("SELECT SUM(train_time) FROM Train WHERE date='" + fromDate + "'");
+            List <String> train_time = dbHelper.readRowFromTable("SELECT train_time FROM Train WHERE date='" + fromDate + "'");
              if (train_time.size() == 0) {
                  daily_time = 0;
              } else {

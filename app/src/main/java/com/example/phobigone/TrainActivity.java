@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class TrainActivity extends AppCompatActivity {
     static Integer numImages = 6;
-    static Integer delay = 2000;
+    static Integer delay = 6000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
     final Handler handler = new Handler();
