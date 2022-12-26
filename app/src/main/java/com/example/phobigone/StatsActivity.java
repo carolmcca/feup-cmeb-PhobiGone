@@ -1,5 +1,6 @@
 package com.example.phobigone;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -175,5 +176,12 @@ public class StatsActivity extends AppCompatActivity {
         cal.add(Calendar.DATE, -1*numDays);
         Date todate = cal.getTime();
         return dateFormat.format(todate);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

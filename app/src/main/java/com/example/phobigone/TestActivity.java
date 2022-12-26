@@ -21,17 +21,23 @@ public class TestActivity extends AppCompatActivity {
     Integer seenImages = -1;
     private static final double SDRR_THRESHOLD = 0.6;
     private static final double RMSRR_THRESHOLD = 27.9;
-    Integer[] randImgs = new Integer[numImages];
-    Uri[] randVids = new Uri[numImages];
-    ImageView spiderImg;
-    VideoView spiderVid;
-    Boolean sound;
+
+
+    private Integer[] randImgs = new Integer[numImages];
+    private Uri[] randVids = new Uri[numImages];
+    private ImageView spiderImg;
+    private VideoView spiderVid;
+    private Boolean sound;
+    private Integer level;
+    boolean onStress;
+    private Runnable runnable;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Integer level = getIntent().getIntExtra("level", 1);
+        this.level = getIntent().getIntExtra("level", 1);
         MainActivity.btService.resetRr();
         Integer i = 0;
 
@@ -74,19 +80,22 @@ public class TestActivity extends AppCompatActivity {
             }
         }
 
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        this.handler = new Handler();
+        this.runnable = new Runnable() {
             public void run() {
                 seenImages++;
                 if(seenImages>numImages-1) {
                     double sdrr = MainActivity.btService.getSDRR();
                     double rmsrr = MainActivity.btService.getRMSRR();
-                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
-                        nextLevel(level);
-                    else if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
-                        endTest(level, true);
-                    else
-                        endTest(level, false);
+                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
+                        nextLevel();
+                    } else if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
+                        onStress = true;
+                        endTest();
+                    } else {
+                        onStress = false;
+                        endTest();
+                    }
                     return;
                 }
 
@@ -102,7 +111,7 @@ public class TestActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 0);  //for interval...
 
         Button btExit = findViewById(R.id.bt_exit);
-        btExit.setOnClickListener((View v)->onBtClick(runnable, handler, level));
+        btExit.setOnClickListener((View v)->onBtClick());
     }
 
     private void setVolumeControl(MediaPlayer mp) {
@@ -113,13 +122,14 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    private void nextLevel(Integer level) {
+    private void nextLevel() {
         Intent intent = new Intent(this, RelaxActivity.class);
-        intent.putExtra("level", level+1);
+        intent.putExtra("level", this.level+1);
         startActivity(intent);
     }
 
-    private void endTest(Integer level, boolean onStress) {
+    private void endTest() {
+        handler.removeCallbacks(runnable);
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", seenImages);
         intent.putExtra("numContent", numImages);
@@ -128,12 +138,17 @@ public class TestActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void onBtClick(Runnable runnable, Handler handler, Integer level) {
-        handler.removeCallbacks(runnable);
-        endTest(level, false);
+    private void onBtClick() {
+        this.onStress = false;
+        endTest();
     }
 
     public int getRandomNumber(double min, double max) {
         return (int) Math.round((Math.random() * (max - min)) + min);
+    }
+
+    @Override
+    public void onBackPressed() {
+        endTest();
     }
 }

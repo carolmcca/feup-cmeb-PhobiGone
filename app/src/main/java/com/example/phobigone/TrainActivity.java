@@ -19,11 +19,14 @@ public class TrainActivity extends AppCompatActivity {
     static Integer delay = 2000;
     static Integer totalImages = 15;
     Integer seenImages = -1;
-    Uri[] randVids = new Uri[numImages];
-    ImageView spiderImg;
-    VideoView spiderVid;
-    Integer level;
-    Boolean sound;
+
+    private Uri[] randVids = new Uri[numImages];
+    private ImageView spiderImg;
+    private VideoView spiderVid;
+    private Integer level;
+    private Boolean sound;
+    private Runnable runnable;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,8 @@ public class TrainActivity extends AppCompatActivity {
             }
         }
 
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        this.handler = new Handler();
+        this.runnable = new Runnable() {
             public void run() {
                 seenImages++;
                 if(seenImages>numImages-1) {
@@ -92,7 +95,7 @@ public class TrainActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 0);  //for interval...
 
         Button btExit = findViewById(R.id.bt_exit);
-        btExit.setOnClickListener((View v)->onBtClick(runnable, handler));
+        btExit.setOnClickListener(vw -> endTrain());
     }
 
     private void setVolumeControl(MediaPlayer mp) {
@@ -104,6 +107,7 @@ public class TrainActivity extends AppCompatActivity {
     }
 
     private void endTrain() {
+        handler.removeCallbacks(runnable);
         Intent intent = new Intent(this, TrainResultsActivity.class);
         intent.putExtra("seenImages", seenImages);
         intent.putExtra("numImages", numImages);
@@ -111,12 +115,12 @@ public class TrainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void onBtClick(Runnable runnable, Handler handler) {
-        handler.removeCallbacks(runnable);
-        endTrain();
-    }
-
     public int getRandomNumber(double min, double max) {
         return (int) Math.round((Math.random() * (max - min)) + min);
+    }
+
+    @Override
+    public void onBackPressed() {
+        endTrain();
     }
 }

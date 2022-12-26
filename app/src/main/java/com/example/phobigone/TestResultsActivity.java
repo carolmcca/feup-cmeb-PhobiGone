@@ -73,4 +73,11 @@ public class TestResultsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, StatsActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
