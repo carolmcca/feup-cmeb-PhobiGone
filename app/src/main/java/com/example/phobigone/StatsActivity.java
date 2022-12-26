@@ -1,5 +1,6 @@
 package com.example.phobigone;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -90,6 +91,8 @@ public class StatsActivity extends AppCompatActivity {
                 trainSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
                 baselineSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.darkBrown));
 
+                numDailyHoursGraph.getGridLabelRenderer().setHorizontalLabelsColor(Color.TRANSPARENT);
+
                 // Set legend for the GraphView
                 numDailyHoursGraph.getLegendRenderer().setVisible(true);
                 numDailyHoursGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -112,6 +115,8 @@ public class StatsActivity extends AppCompatActivity {
                 levelSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
                 levelSeries.setDrawDataPoints(true);
                 levelSeries.setDataPointsRadius(10f);
+
+                levelEvolutionGraph.getGridLabelRenderer().setHorizontalLabelsColor(Color.TRANSPARENT);
 
                 // Set legend for the GraphView related to the level evolution
                 levelEvolutionGraph.getLegendRenderer().setVisible(true);
@@ -158,16 +163,16 @@ public class StatsActivity extends AppCompatActivity {
         float daily_time;
         DataPoint[] dataPoints = new DataPoint[size];
         for (int point = 0; point < size; point++){
-            List <String> train_time = dbHelper.readRowFromTable("SELECT train_time FROM Train WHERE date='" + fromDate + "'");
-             if (train_time.size() == 0) {
+            List <String> train_time = dbHelper.readRowFromTable("SELECT SUM(train_time) FROM Train WHERE date='" + fromDate + "'");
+             if (train_time.get(0) == null) {
                  daily_time = 0;
              } else {
-                 daily_time = Float.valueOf(train_time.get(0));
+                 daily_time = Float.valueOf(train_time.get(0))/60;
              }
 
             DataPoint dp = new DataPoint (point+1, daily_time);
             dataPoints[point] = dp;
-            fromDate = getDateToCheckFrom(size - point - 1);
+            fromDate = getDateToCheckFrom(size - point - 2);
         }
         return dataPoints;
     }
@@ -207,5 +212,12 @@ public class StatsActivity extends AppCompatActivity {
         Date toDate = cal.getTime();
 
         return dateFormat.format(toDate);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.IMAGES_TO_DISPLAY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,6 @@ public class TrainResultsActivity extends AppCompatActivity {
 
         // getting intent information
         Integer seenImages = getIntent().getIntExtra("seenImages", 0);
-        Double numImages = (double) getIntent().getIntExtra("numImages", 1);
         Integer level = getIntent().getIntExtra("level", 1);
 
         // showing the number of resources seen
@@ -29,7 +30,7 @@ public class TrainResultsActivity extends AppCompatActivity {
 
         // showing the percentage of resources seen
         TextView imagePercentage = findViewById(R.id.imagePercentage);
-        float img_perc = Math.round(seenImages/numImages*100);
+        float img_perc = Math.round(seenImages*100/IMAGES_TO_DISPLAY);
         imagePercentage.setText(String.valueOf(img_perc) + "%");
 
         // showing a congratulatory message; this message depends on the success of the train session
@@ -63,7 +64,7 @@ public class TrainResultsActivity extends AppCompatActivity {
 
         // adding the train data to the database
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.addTrain(seenImages*10/60);
+        dbHelper.addTrain(seenImages*10);
 
         // updating the user's badges after the train session
         updateBadges(dbHelper);
@@ -122,5 +123,12 @@ public class TrainResultsActivity extends AppCompatActivity {
             dbHelper.earnBadge(badgeId);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

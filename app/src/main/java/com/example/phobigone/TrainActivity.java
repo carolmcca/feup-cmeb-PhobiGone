@@ -1,11 +1,14 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.DELAY;
+import static com.example.phobigone.MainActivity.IMAGES_TO_DISPLAY;
+import static com.example.phobigone.MainActivity.TOTAL_IMAGES;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -15,17 +18,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TrainActivity extends AppCompatActivity {
-    static Integer numImages = 6;
-    static Integer delay = 6000;
-    static Integer totalImages = 15;
     Integer seenImages = -1;
-    final Handler handler = new Handler();
-    Runnable runnable;
-    Uri[] randVids = new Uri[numImages];
-    ImageView spiderImg;
-    VideoView spiderVid;
-    Integer level;
-    Boolean sound;
+
+    private Uri[] randVids = new Uri[IMAGES_TO_DISPLAY];
+    private ImageView spiderImg;
+    private VideoView spiderVid;
+    private Integer level;
+    private Boolean sound;
+    private Runnable runnable;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class TrainActivity extends AppCompatActivity {
 
         // getting intent information
         level = getIntent().getIntExtra("level", 1);
+        Integer[] randImgs = new Integer[IMAGES_TO_DISPLAY];
 
-        Integer[] randImgs = new Integer[numImages];
         Integer i = 0;
 
         // selection of the layout to be used for the selected train level
@@ -44,9 +45,8 @@ public class TrainActivity extends AppCompatActivity {
             spiderImg = findViewById(R.id.spider_img);
 
             // array defining the random images to be displayed on the selected train level
-            while (i<numImages) {
-                // random selection
-                Integer newRand = getRandomNumber(0.5, totalImages+0.5);
+            while (i<IMAGES_TO_DISPLAY) {
+                Integer newRand = getRandomNumber(0.5, TOTAL_IMAGES+0.5);
 
                 // getting the ids of the resources that will be displayed
                 String idStr = "@drawable/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
@@ -75,9 +75,9 @@ public class TrainActivity extends AppCompatActivity {
             mc.hide();
 
             // array defining the random videos to be displayed on the selected train level
-            while (i < numImages) {
+            while (i < IMAGES_TO_DISPLAY) {
                 // random selection
-                Integer newRand = getRandomNumber(1, totalImages);
+                Integer newRand = getRandomNumber(1, TOTAL_IMAGES);
 
                 // getting the paths for the resources that will be displayed
                 String idStr = "@raw/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
@@ -93,10 +93,11 @@ public class TrainActivity extends AppCompatActivity {
             }
         }
 
-        runnable = new Runnable() {
+        this.handler = new Handler();
+        this.runnable = new Runnable() {
             public void run() {
                 seenImages++;
-                if(seenImages>numImages-1) {
+                if(seenImages>IMAGES_TO_DISPLAY-1) {
                     endTrain();
                     return;
                 }
@@ -108,7 +109,7 @@ public class TrainActivity extends AppCompatActivity {
                     spiderVid.setVideoURI(randVids[seenImages]);
                     spiderVid.start();
                 }
-                handler.postDelayed(this, delay);  // time period to display the image or video
+                handler.postDelayed(this, DELAY);  // time period to display the image or video
             }
         };
         handler.postDelayed(runnable, 0);  // time period before the image or video is displayed (set to 0)
@@ -116,7 +117,7 @@ public class TrainActivity extends AppCompatActivity {
         // since the video is running in a separate thread, the user can always
         // click the available button and give up from the train session
         Button btExit = findViewById(R.id.bt_exit);
-        btExit.setOnClickListener((View v)->onBtClick(runnable, handler));
+        btExit.setOnClickListener(vw -> endTrain());
     }
 
     // sets the videos' volume
@@ -131,17 +132,11 @@ public class TrainActivity extends AppCompatActivity {
     // defines an intent to the results activity, with the necessary information to display the
     // train statistics
     private void endTrain() {
+        handler.removeCallbacks(runnable);
         Intent intent = new Intent(this, TrainResultsActivity.class);
         intent.putExtra("seenImages", seenImages);
-        intent.putExtra("numImages", numImages);
         intent.putExtra("level", level);
         startActivity(intent);
-    }
-
-    // when the user gives up, the parallel threads are removed and 'endTrain' is called
-    private void onBtClick(Runnable runnable, Handler handler) {
-        handler.removeCallbacks(runnable);
-        endTrain();
     }
 
     // random number generator (uniform distribution)
@@ -149,10 +144,8 @@ public class TrainActivity extends AppCompatActivity {
         return (int) Math.round((Math.random() * (max - min)) + min);
     }
 
-    // when the user clicks on the back button, the paralel threads are removed
     @Override
-    protected void onDestroy() {
-        handler.removeCallbacks(runnable);
-        super.onDestroy();
+    public void onBackPressed() {
+        endTrain();
     }
 }

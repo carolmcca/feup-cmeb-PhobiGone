@@ -1,5 +1,11 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.DELAY;
+import static com.example.phobigone.MainActivity.IMAGES_TO_DISPLAY;
+import static com.example.phobigone.MainActivity.RMSRR_THRESHOLD;
+import static com.example.phobigone.MainActivity.SDRR_THRESHOLD;
+import static com.example.phobigone.MainActivity.TOTAL_IMAGES;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,26 +21,25 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TestActivity extends AppCompatActivity {
-    static Integer numImages = 6;
-    static Integer delay = 6000;
-    static Integer totalImages = 15;
     Integer seenImages = -1;
-    private static final double SDRR_THRESHOLD = 0.6;
-    private static final double RMSRR_THRESHOLD = 27.9;
-    final Handler handler = new Handler();
-    Runnable runnable;
-    Integer[] randImgs = new Integer[numImages];
-    Uri[] randVids = new Uri[numImages];
-    ImageView spiderImg;
-    VideoView spiderVid;
-    Boolean sound;
+
+    private Integer[] randImgs = new Integer[IMAGES_TO_DISPLAY];
+    private Uri[] randVids = new Uri[IMAGES_TO_DISPLAY];
+    private ImageView spiderImg;
+    private VideoView spiderVid;
+    private Boolean sound;
+    private Integer level;
+    boolean onStress;
+    private Runnable runnable;
+    private Handler handler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // getting intent information
-        Integer level = getIntent().getIntExtra("level", 1);
+        this.level = getIntent().getIntExtra("level", 1);
 
         // deleting previously acquired RR intervals
         MainActivity.btService.resetRr();
@@ -48,9 +53,9 @@ public class TestActivity extends AppCompatActivity {
             spiderImg = findViewById(R.id.spider_img);
 
             // array defining the random images to be displayed on the current test level
-            while (i<numImages) {
+            while (i<IMAGES_TO_DISPLAY) {
                 // random selection
-                Integer newRand = getRandomNumber(0.5, totalImages+0.5);
+                Integer newRand = getRandomNumber(0.5, TOTAL_IMAGES+0.5);
 
                 // getting the ids of the resources that will be displayed
                 String idStr = "@drawable/level" + String.valueOf(level) + "_test_" + String.valueOf(newRand);
@@ -79,10 +84,9 @@ public class TestActivity extends AppCompatActivity {
             mc.hide();
 
             // array defining the random videos to be displayed on the current test level
-            while (i < numImages) {
+            while (i < IMAGES_TO_DISPLAY) {
                 // random selection
-                Integer newRand = getRandomNumber(1, totalImages);
-
+                Integer newRand = getRandomNumber(1, TOTAL_IMAGES);
                 // getting the paths for the resources that will be displayed
                 String idStr = "@raw/level" + String.valueOf(level) + "_test_" + String.valueOf(newRand);
                 Integer id = getResources().getIdentifier(idStr, null, getPackageName());
@@ -97,11 +101,12 @@ public class TestActivity extends AppCompatActivity {
             }
         }
 
+        this.handler = new Handler();
         // a thread that runs in parallel, showing the relaxing video
-        runnable = new Runnable() {
+        this.runnable = new Runnable() {
             public void run() {
                 seenImages++;
-                if(seenImages>numImages-1) {
+                if(seenImages>IMAGES_TO_DISPLAY-1) {
                     // getting sdrr and rmsrr values from the VitalJacket
                     double sdrr = MainActivity.btService.getSDRR();
                     double rmsrr = MainActivity.btService.getRMSRR();
@@ -109,14 +114,17 @@ public class TestActivity extends AppCompatActivity {
                     // the user can go to the next level if:
                     //      * they haven't already seen all levels AND
                     //      * their ECG values don't reveal excessive stress
-                    if (level!=4 && (sdrr>SDRR_THRESHOLD || rmsrr>RMSRR_THRESHOLD))
-                        nextLevel(level);
+                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
+                        nextLevel();
                     // test finished due to excessive user's stress
-                    else if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD)
-                        endTest(level, true);
+                    } else if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
+                        onStress = true;
+                        endTest();
                     // the finished the 4 available levels
-                    else
-                        endTest(level, false);
+                    } else {
+                        onStress = false;
+                        endTest();
+                    }
                     return;
                 }
 
@@ -127,7 +135,8 @@ public class TestActivity extends AppCompatActivity {
                     spiderVid.setVideoURI(randVids[seenImages]);
                     spiderVid.start();
                 }
-                handler.postDelayed(this, delay);  // time period to display the image or video
+
+                handler.postDelayed(this, DELAY);  // time period to display the image or video
             }
         };
         handler.postDelayed(runnable, 0); // time period before the image or video is displayed (set to 0)
@@ -135,7 +144,7 @@ public class TestActivity extends AppCompatActivity {
         // since the video is running in a separate thread, the user can always
         // click the available button and give up from the test session
         Button btExit = findViewById(R.id.bt_exit);
-        btExit.setOnClickListener((View v)->onBtClick(runnable, handler, level));
+        btExit.setOnClickListener((View v)->onBtClick());
     }
 
     // sets the videos' volume
@@ -149,27 +158,27 @@ public class TestActivity extends AppCompatActivity {
 
     // defines an intent for the relax activity, since the user completed the test and
     // is ready to go up a level
-    private void nextLevel(Integer level) {
+    private void nextLevel() {
         Intent intent = new Intent(this, RelaxActivity.class);
-        intent.putExtra("level", level+1);
+        intent.putExtra("level", this.level+1);
         startActivity(intent);
     }
 
     // defines an intent to the results activity, with the necessary information to display the
     // test statistics
-    private void endTest(Integer level, boolean onStress) {
+    private void endTest() {
+        handler.removeCallbacks(runnable);
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", seenImages);
-        intent.putExtra("numContent", numImages);
         intent.putExtra("level", level);
         intent.putExtra("onStress", onStress);
         startActivity(intent);
     }
 
-    // when the user gives up, the parallel threads are removed and 'endTest' is called
-    private void onBtClick(Runnable runnable, Handler handler, Integer level) {
-        handler.removeCallbacks(runnable);
-        endTest(level, false);
+    // when the user gives up, the onStress is set to false and 'endTest' is called
+    private void onBtClick() {
+        this.onStress = false;
+        endTest();
     }
 
     // random number generator (uniform distribution)
@@ -177,10 +186,8 @@ public class TestActivity extends AppCompatActivity {
         return (int) Math.round((Math.random() * (max - min)) + min);
     }
 
-    // when the user clicks on the back butto\n, the paralel threads are removed
     @Override
-    protected void onDestroy() {
-        handler.removeCallbacks(runnable);
-        super.onDestroy();
+    public void onBackPressed() {
+        endTest();
     }
 }
