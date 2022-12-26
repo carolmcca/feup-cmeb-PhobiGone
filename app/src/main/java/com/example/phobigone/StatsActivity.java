@@ -76,6 +76,8 @@ public class StatsActivity extends AppCompatActivity {
                 trainSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
                 baselineSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.darkBrown));
 
+                numDailyHoursGraph.getGridLabelRenderer().setHorizontalLabelsColor(Color.TRANSPARENT);
+
                 numDailyHoursGraph.getLegendRenderer().setVisible(true);
                 numDailyHoursGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
                 numDailyHoursGraph.getLegendRenderer().setMargin(40);
@@ -93,6 +95,8 @@ public class StatsActivity extends AppCompatActivity {
                 levelSeries.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
                 levelSeries.setDrawDataPoints(true);
                 levelSeries.setDataPointsRadius(10f);
+
+                levelEvolutionGraph.getGridLabelRenderer().setHorizontalLabelsColor(Color.TRANSPARENT);
 
                 levelEvolutionGraph.getLegendRenderer().setVisible(true);
                 levelEvolutionGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
