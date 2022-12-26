@@ -1,5 +1,7 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.IMAGES_TO_DISPLAY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,15 +19,14 @@ public class TestResultsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Integer seenContent = intent.getIntExtra("seenContent", 0);
-        Double numContent = (double) intent.getIntExtra("numContent", 1);
         Integer level = intent.getIntExtra("level", 1);
         boolean onStress = intent.getBooleanExtra("onStress", false);
 
         TextView imageSeen = findViewById(R.id.imageSeen);
-        imageSeen.setText(String.valueOf((int)(seenContent + numContent*(level-1))) + " Images");
+        imageSeen.setText(String.valueOf((int)(seenContent + IMAGES_TO_DISPLAY*(level-1))) + " Images");
 
         TextView imagePercentage = findViewById(R.id.imagePercentage);
-        float img_perc = Math.round((seenContent + numContent*(level-1))/(numLevels*numContent)*100);
+        float img_perc = Math.round(((seenContent + IMAGES_TO_DISPLAY*(level-1)))*100/(numLevels*IMAGES_TO_DISPLAY));
         imagePercentage.setText(String.valueOf(img_perc) + "%");
 
         TextView textLevel = findViewById(R.id.textLevel);

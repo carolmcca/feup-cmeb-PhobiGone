@@ -18,6 +18,10 @@ import android.widget.Button;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+    // Global constants
+    public static final Integer DELAY = 10000;
+    public static final Integer IMAGES_TO_DISPLAY = 6;
+    public static final Integer TOTAL_IMAGES = 15;
 
     public static final String CHANNEL_ID = "phobigone";
     public static BluetoothService btService;

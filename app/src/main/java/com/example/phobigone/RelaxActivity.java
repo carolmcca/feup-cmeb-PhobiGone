@@ -1,11 +1,12 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.DELAY;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -13,9 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.HashMap;
 
 public class RelaxActivity extends AppCompatActivity {
-    static Integer delay = 10000;
     Integer relaxTimes = -1;
-    static Integer numVideos = 6;
     final Handler relax_handler = new Handler();
     Runnable relax_runnable;
     Boolean sound;
@@ -45,7 +44,7 @@ public class RelaxActivity extends AppCompatActivity {
                 Integer vidId = getResources().getIdentifier("@raw/relax", null, getPackageName());
                 spiderVid.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + vidId));
                 spiderVid.start();
-                relax_handler.postDelayed(this, delay);  //for interval...
+                relax_handler.postDelayed(this, DELAY);  //for interval...
             }
         };
         relax_handler.postDelayed(relax_runnable, 0);  //for interval...
@@ -66,7 +65,6 @@ public class RelaxActivity extends AppCompatActivity {
         this.relax_handler.removeCallbacks(relax_runnable);
         Intent intent = new Intent(this, TestResultsActivity.class);
         intent.putExtra("seenContent", 0);
-        intent.putExtra("numContent", numVideos);
         intent.putExtra("level", this.level);
         startActivity(intent);
     }

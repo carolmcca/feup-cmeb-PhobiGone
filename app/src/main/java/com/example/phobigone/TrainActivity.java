@@ -1,5 +1,9 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.DELAY;
+import static com.example.phobigone.MainActivity.IMAGES_TO_DISPLAY;
+import static com.example.phobigone.MainActivity.TOTAL_IMAGES;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,12 +19,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class TrainActivity extends AppCompatActivity {
-    static Integer numImages = 6;
-    static Integer delay = 2000;
-    static Integer totalImages = 15;
     Integer seenImages = -1;
 
-    private Uri[] randVids = new Uri[numImages];
+    private Uri[] randVids = new Uri[IMAGES_TO_DISPLAY];
     private ImageView spiderImg;
     private VideoView spiderVid;
     private Integer level;
@@ -33,14 +34,14 @@ public class TrainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         level = getIntent().getIntExtra("level", 1);
-        Integer[] randImgs = new Integer[numImages];
+        Integer[] randImgs = new Integer[IMAGES_TO_DISPLAY];
         Integer i = 0;
 
         if (level==1 || level==3) {
             setContentView(R.layout.activity_images);
             spiderImg = findViewById(R.id.spider_img);
-            while (i<numImages) {
-                Integer newRand = getRandomNumber(0.5, totalImages+0.5);
+            while (i<IMAGES_TO_DISPLAY) {
+                Integer newRand = getRandomNumber(0.5, TOTAL_IMAGES+0.5);
                 String idStr = "@drawable/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
                 Integer id = getResources().getIdentifier(idStr, null, getPackageName());
                 boolean repeated = Arrays.asList(randImgs).contains(id);
@@ -61,8 +62,8 @@ public class TrainActivity extends AppCompatActivity {
             spiderVid.setOnPreparedListener(mp -> setVolumeControl(mp));
             mc.hide();
 
-            while (i < numImages) {
-                Integer newRand = getRandomNumber(1, totalImages);
+            while (i < IMAGES_TO_DISPLAY) {
+                Integer newRand = getRandomNumber(1, TOTAL_IMAGES);
                 String idStr = "@raw/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
                 Integer id = getResources().getIdentifier(idStr, null, getPackageName());
                 Uri path = Uri.parse("android.resource://" + getPackageName() + "/" + id);
@@ -78,7 +79,7 @@ public class TrainActivity extends AppCompatActivity {
         this.runnable = new Runnable() {
             public void run() {
                 seenImages++;
-                if(seenImages>numImages-1) {
+                if(seenImages>IMAGES_TO_DISPLAY-1) {
                     endTrain();
                     return;
                 }
@@ -89,7 +90,7 @@ public class TrainActivity extends AppCompatActivity {
                     spiderVid.setVideoURI(randVids[seenImages]);
                     spiderVid.start();
                 }
-                handler.postDelayed(this, delay);  //for interval...
+                handler.postDelayed(this, DELAY);  //for interval...
             }
         };
         handler.postDelayed(runnable, 0);  //for interval...
@@ -110,7 +111,6 @@ public class TrainActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
         Intent intent = new Intent(this, TrainResultsActivity.class);
         intent.putExtra("seenImages", seenImages);
-        intent.putExtra("numImages", numImages);
         intent.putExtra("level", level);
         startActivity(intent);
     }

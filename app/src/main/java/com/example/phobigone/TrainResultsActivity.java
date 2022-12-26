@@ -1,7 +1,10 @@
 package com.example.phobigone;
 
+import static com.example.phobigone.MainActivity.IMAGES_TO_DISPLAY;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,14 +22,13 @@ public class TrainResultsActivity extends AppCompatActivity {
         setContentView(R.layout.train_results);
 
         Integer seenImages = getIntent().getIntExtra("seenImages", 0);
-        Double numImages = (double) getIntent().getIntExtra("numImages", 1);
         Integer level = getIntent().getIntExtra("level", 1);
 
         TextView imageSeen = findViewById(R.id.imageSeen);
         imageSeen.setText(String.valueOf(seenImages) + " Images");
 
         TextView imagePercentage = findViewById(R.id.imagePercentage);
-        float img_perc = Math.round(seenImages/numImages*100);
+        float img_perc = Math.round(seenImages*100/IMAGES_TO_DISPLAY);
         imagePercentage.setText(String.valueOf(img_perc) + "%");
 
         TextView congratsMsg = findViewById(R.id.congrats_msg);
