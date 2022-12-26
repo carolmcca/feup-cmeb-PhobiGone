@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     public static final Integer DELAY = 10000;
     public static final Integer IMAGES_TO_DISPLAY = 6;
     public static final Integer TOTAL_IMAGES = 15;
+    public static final double SDRR_THRESHOLD = 0.6;
+    public static final double RMSRR_THRESHOLD = 27.9;
 
     public static final String CHANNEL_ID = "phobigone";
     public static BluetoothService btService;
@@ -31,19 +33,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //  Check if notifications are active
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         String aux = dbHelper.readRowFromTable("SELECT notifications FROM Setting;").get(0);
         boolean notificationsEnabled = (dbHelper.readRowFromTable("SELECT notifications FROM Setting;")).get(0).equals("1");
+        // If notifications are enabled, schedule one
         if (notificationsEnabled)
             scheduleNotification(buildNotification());
-        else
+        else // If not cancel the notifications
             cancelNotification();
 
+        // Views of buttons of main Menu
         Button btTrain = findViewById(R.id.bt_train);
         Button btTest = findViewById(R.id.bt_test);
         Button btStats = findViewById(R.id.bt_stats);
         Button btFacts = findViewById(R.id.bt_facts);
 
+        // Respective Listeners to the buttons
         btTrain.setOnClickListener((View v)->onBtClick(btTrain.getId()));
         btTest.setOnClickListener((View v)->onBtClick(btTest.getId()));
         btStats.setOnClickListener((View v)->onBtClick(btStats.getId()));
@@ -73,10 +79,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Notification buildNotification() {
+        // This function is responsible for the display of notifications
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+
+        // Messages to display
         String notTitle = "Daily Reminder";
         String smallNotContent = "Our spiders are missing you!";
         String bigNotContent = "Our spiders are missing you! Join us and overcome your phobia";
+
         // Create an Intent for the activity you want to start
         Intent resultIntent = new Intent(this, MainActivity.class);
         // Create the TaskStackBuilder and add the intent, which inflates the back stack
@@ -85,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         // Get the PendingIntent containing the entire back stack
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        // Set notification builder with title, text, respective style
+        // Set a priority, the channel ID and other notification attributes
         builder.setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(notTitle)
                 .setContentText(smallNotContent)
@@ -97,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cancelNotification() {
+        // this function is responsible for the cancellation of the notification
+        // this happens when the user turns the notifications off
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), NotificationPublisher.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -118,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onBtClick(int id) {
+        // This function creates the intent according to the button that is pressed
         Intent intent;
 
         switch (id) {
