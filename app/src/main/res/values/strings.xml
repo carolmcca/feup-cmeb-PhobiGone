@@ -14,7 +14,7 @@
     </string-array>
     <string name="select">Selection:</string>
     <string name="Home">Home</string>
-    <string name="numHours">Number of daily hours</string>
+    <string name="numHours">Number of daily training minutes</string>
     <string name="stats">Statistics</string>
     <string name="evolLevel">Level Evolution</string>
 

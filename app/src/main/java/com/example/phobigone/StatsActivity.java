@@ -133,16 +133,16 @@ public class StatsActivity extends AppCompatActivity {
         float daily_time;
         DataPoint[] dataPoints = new DataPoint[size];
         for (int point = 0; point < size; point++){
-            List <String> train_time = dbHelper.readRowFromTable("SELECT train_time FROM Train WHERE date='" + fromdate + "'");
-             if (train_time.size() == 0) {
+            List <String> train_time = dbHelper.readRowFromTable("SELECT SUM(train_time) FROM Train WHERE date='" + fromdate + "'");
+             if (train_time.get(0) == null) {
                  daily_time = 0;
              } else {
-                 daily_time = Float.valueOf(train_time.get(0));
+                 daily_time = Float.valueOf(train_time.get(0))/60;
              }
 
             DataPoint dp = new DataPoint (point+1, daily_time);
             dataPoints[point] = dp;
-            fromdate = getDateToCheckFrom(size - point - 1);
+            fromdate = getDateToCheckFrom(size - point - 2);
         }
         return dataPoints;
     }

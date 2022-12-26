@@ -57,7 +57,7 @@ public class TrainResultsActivity extends AppCompatActivity {
         btStats.setOnClickListener((View v)->onBtStatsClick());
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.addTrain(seenImages*10/60);
+        dbHelper.addTrain(seenImages*10);
 
         updateBadges(dbHelper);
     }
