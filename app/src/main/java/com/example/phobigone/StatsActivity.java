@@ -127,7 +127,7 @@ public class StatsActivity extends AppCompatActivity {
                 levelEvolutionGraph.getViewport().setMaxX(numDays + 5);
                 //levelEvolutionGraph.getViewport().setMinX(1);
                 levelEvolutionGraph.getViewport().setXAxisBoundsManual(true);
-                levelEvolutionGraph.getViewport().setMaxY(4.5);
+                levelEvolutionGraph.getViewport().setMaxY(5.5);
                 levelEvolutionGraph.getViewport().setMinY(0);
                 levelEvolutionGraph.getViewport().setYAxisBoundsManual(true);
                 levelEvolutionGraph.addSeries(levelSeries);

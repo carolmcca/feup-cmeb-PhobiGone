@@ -6,11 +6,15 @@ import static com.example.phobigone.MainActivity.RMSRR_THRESHOLD;
 import static com.example.phobigone.MainActivity.SDRR_THRESHOLD;
 import static com.example.phobigone.MainActivity.TOTAL_IMAGES;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,7 +36,9 @@ public class TestActivity extends AppCompatActivity {
     boolean onStress;
     private Runnable runnable;
     private Handler handler;
-
+    private VibrationEffect vibrationEffect;
+    long[] pattern = new long[]{600, 600, 600, 600, 600, 600, 600, 600, 600, 600};
+    int[] amplitude = new int[]{255, 0, 255, 0, 255, 0, 255, 0, 255, 0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,7 @@ public class TestActivity extends AppCompatActivity {
         Integer i = 0;
 
         // selection of the layout to be used for the current test level
-        // levels 1 and 3 should display images, while levels 2 and 4 should display videos
+        // levels 1 and 3 should display images, while levels 2, 4 and 5 should display videos
         if (level==1 || level==3) {
             setContentView(R.layout.activity_images);
             spiderImg = findViewById(R.id.spider_img);
@@ -86,9 +92,16 @@ public class TestActivity extends AppCompatActivity {
             // array defining the random videos to be displayed on the current test level
             while (i < IMAGES_TO_DISPLAY) {
                 // random selection
-                Integer newRand = getRandomNumber(1, TOTAL_IMAGES);
+                Integer newRand = getRandomNumber(0.5, TOTAL_IMAGES+0.5);
+
+                // the fifth level uses the same list of videos as the fourth one
+                int video_level = level;
+                if (video_level == 5) {
+                    video_level = 4;
+                }
+
                 // getting the paths for the resources that will be displayed
-                String idStr = "@raw/level" + String.valueOf(level) + "_test_" + String.valueOf(newRand);
+                String idStr = "@raw/level" + String.valueOf(video_level) + "_test_" + String.valueOf(newRand);
                 Integer id = getResources().getIdentifier(idStr, null, getPackageName());
                 Uri path = Uri.parse("android.resource://" + getPackageName() + "/" + id);
 
@@ -114,13 +127,13 @@ public class TestActivity extends AppCompatActivity {
                     // the user can go to the next level if:
                     //      * they haven't already seen all levels AND
                     //      * their ECG values don't reveal excessive stress
-                    if (level!=4 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
+                    if (level!=5 && sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
                         nextLevel();
                     // test finished due to excessive user's stress
                     } else if (sdrr<SDRR_THRESHOLD && rmsrr<RMSRR_THRESHOLD) {
                         onStress = true;
                         endTest();
-                    // the finished the 4 available levels
+                    // the user finished the 5 available levels
                     } else {
                         onStress = false;
                         endTest();
@@ -134,6 +147,21 @@ public class TestActivity extends AppCompatActivity {
                 } else {
                     spiderVid.setVideoURI(randVids[seenImages]);
                     spiderVid.start();
+
+                    if (level == 5){
+                        // in level 5, the phone will vibrate half of the times for 5 seconds
+                        int random_vibration = getRandomNumber(0.5, 2.5); // can be 1 or 2 with equal probability
+                        if (random_vibration == 1) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                                // creating a 6 seconds vibration and canceling any vibrations taking place (none expected)
+                                vibrationEffect = VibrationEffect.createWaveform(pattern, amplitude,-1);
+                                vibrator.cancel();
+                                // applying the 6 seconds vibration
+                                vibrator.vibrate(vibrationEffect);
+                            }
+                        }
+                    }
                 }
 
                 handler.postDelayed(this, DELAY);  // time period to display the image or video

@@ -77,7 +77,7 @@ public class TrainActivity extends AppCompatActivity {
             // array defining the random videos to be displayed on the selected train level
             while (i < IMAGES_TO_DISPLAY) {
                 // random selection
-                Integer newRand = getRandomNumber(1, TOTAL_IMAGES);
+                Integer newRand = getRandomNumber(0.5, TOTAL_IMAGES+0.5);
 
                 // getting the paths for the resources that will be displayed
                 String idStr = "@raw/level" + String.valueOf(level) + "_train_" + String.valueOf(newRand);
