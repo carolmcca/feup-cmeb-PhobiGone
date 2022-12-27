@@ -46,6 +46,7 @@ public class TestActivity extends AppCompatActivity {
 
         // getting intent information
         this.level = getIntent().getIntExtra("level", 1);
+        level = 5;
 
         // deleting previously acquired RR intervals
         MainActivity.btService.resetRr();

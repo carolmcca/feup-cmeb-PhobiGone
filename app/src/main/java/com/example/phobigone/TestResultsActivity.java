@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TestResultsActivity extends AppCompatActivity {
-    Integer numLevels = 4;
+    Integer numLevels = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
