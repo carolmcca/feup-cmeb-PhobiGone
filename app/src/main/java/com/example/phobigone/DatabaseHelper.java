@@ -237,4 +237,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         HashMap<String, String> settings = new HashMap<String, String>(){{put("device_name", settingsList.get(0)); put("notifications", settingsList.get(1)); put("sound", settingsList.get(2)); put("exp_train_time", settingsList.get(3));}};
         return settings;
     }
+
+    //Get the total training time on date fromDate
+    public float getTrainTimeOn(String fromDate) {
+        List <String> train_time = this.readRowFromTable("SELECT SUM(train_time) FROM Train WHERE date='" + fromDate + "'");
+        if (train_time.get(0) == null) {
+            return 0;
+        }
+        return Float.valueOf(train_time.get(0))/60;
+    }
+
+    public Float getTestLevelOn(String fromDate) {
+        String level = this.readRowFromTable("SELECT AVG(level) FROM Test WHERE date='" + fromDate + "'").get(0);
+        if (level == null) {
+            return null;
+        }
+        return Float.valueOf(level);
+    }
 }

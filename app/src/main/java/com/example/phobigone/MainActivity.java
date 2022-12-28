@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     // Global constants
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         //  Check if notifications are active
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        String aux = dbHelper.readRowFromTable("SELECT notifications FROM Setting;").get(0);
-        boolean notificationsEnabled = (dbHelper.readRowFromTable("SELECT notifications FROM Setting;")).get(0).equals("1");
+        HashMap<String, String> settings = dbHelper.getSettings();
+        boolean notificationsEnabled = settings.get("notifications").equals("1");
         // If notifications are enabled, schedule one
         if (notificationsEnabled)
             scheduleNotification(buildNotification());
@@ -54,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
         btTest.setOnClickListener((View v)->onBtClick(btTest.getId()));
         btStats.setOnClickListener((View v)->onBtClick(btStats.getId()));
         btFacts.setOnClickListener((View v)->onBtClick(btFacts.getId()));
-
-        /*Button not = findViewById(R.id.bt_not);
-        not.setOnClickListener(vw -> scheduleNotification(buildNotification()));*/
         
     }
 
@@ -66,10 +64,8 @@ public class MainActivity extends AppCompatActivity {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //long future = SystemClock.elapsedRealtime() + 5000;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         assert alarmManager != null;
-        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, future, pendingIntent);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 19);
         calendar.set(Calendar.MINUTE, 34);

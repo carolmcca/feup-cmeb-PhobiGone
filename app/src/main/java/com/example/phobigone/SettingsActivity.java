@@ -22,6 +22,8 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean notifications;
     private boolean sound;
     private Integer time;
+    private DatabaseHelper dbHelper = new DatabaseHelper(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         // getting the settings information saved in the database
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
         HashMap<String, String> settings = dbHelper.getSettings();
         this.deviceName = settings.get("device_name");
         this.notifications = settings.get("notifications").equals("1");
@@ -124,7 +125,6 @@ public class SettingsActivity extends AppCompatActivity {
         this.notifications = notificationSwitch.isChecked();
         Switch soundSwitch = findViewById(R.id.switch_sound);
         this.sound = soundSwitch.isChecked();
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
         dbHelper.saveSettings(this.deviceId, this.deviceName, this.notifications, this.sound, this.time);
         super.onDestroy();
     }

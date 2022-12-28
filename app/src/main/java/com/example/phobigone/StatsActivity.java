@@ -160,16 +160,9 @@ public class StatsActivity extends AppCompatActivity {
         // from a number of days, dependent on the option selected
         // size- number of Days
         // fromDate - first day to be considered
-        float daily_time;
         DataPoint[] dataPoints = new DataPoint[size];
         for (int point = 0; point < size; point++){
-            List <String> train_time = dbHelper.readRowFromTable("SELECT SUM(train_time) FROM Train WHERE date='" + fromDate + "'");
-             if (train_time.get(0) == null) {
-                 daily_time = 0;
-             } else {
-                 daily_time = Float.valueOf(train_time.get(0))/60;
-             }
-
+            float daily_time = dbHelper.getTrainTimeOn(fromDate);
             DataPoint dp = new DataPoint (point+1, daily_time);
             dataPoints[point] = dp;
             fromDate = getDateToCheckFrom(size - point - 2);
@@ -182,15 +175,12 @@ public class StatsActivity extends AppCompatActivity {
         // from a number of days dependent on the option selected
         // size- number of Days
         // fromDate - first day to be considered
-        float daily_level;
         DataPoint[] dataPoints = new DataPoint[size];
         Integer filledPoints = 0;
         for (int point = 0; point < size; point++){
             // SQL Query gets a list of strings with the average level reached each day
-            List <String> test_level = dbHelper.readRowFromTable("SELECT AVG(level) FROM Test WHERE date='" + fromDate + "'");
-
-            if (test_level.get(0) != null) {
-                daily_level = Float.valueOf(test_level.get(0));
+            Float daily_level = dbHelper.getTestLevelOn(fromDate);
+            if (daily_level != null) {
                 DataPoint dp = new DataPoint (point+1, daily_level);
                 dataPoints[filledPoints] = dp;
                 filledPoints++;
