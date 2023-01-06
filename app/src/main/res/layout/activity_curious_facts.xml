@@ -10,13 +10,8 @@
 
     <TextView
         android:id="@+id/titleFacts"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anton"
-        android:text="DID YOU KNOW..."
-        android:textColor="@color/eggShell"
-        android:textSize="50sp" />
+        style="@style/titles"
+        android:text="DID YOU KNOW..." />
 
     <Space
         android:layout_width="match_parent"
@@ -68,7 +63,7 @@
                 style="@style/factsButton"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="620dp"
-                android:text="@string/fact1Title"
+                android:text="@string/fact4Title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

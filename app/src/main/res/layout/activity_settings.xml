@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/facts_background"
+    android:gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        tools:gravity="center">
+
+        <TextView
+            android:id="@+id/titleSettings"
+            style="@style/titles"
+            android:text="SETTINGS">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/eggShell_75"
+            android:orientation="vertical"
+            android:padding="10sp">
+
+            <Switch
+                android:id="@+id/switch_not"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15sp"
+                android:fontFamily="@font/anton"
+                android:layout_marginHorizontal="20dp"
+                android:checked="true"
+                android:minHeight="48dp"
+                android:text="Notifications"
+                android:textColor="@color/brown"
+                android:textSize="25sp" />
+
+            <Switch
+                android:id="@+id/switch_sound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:fontFamily="@font/anton"
+                android:layout_marginHorizontal="20dp"
+                android:checked="true"
+                android:minHeight="48dp"
+                android:text="Sound"
+                android:textColor="@color/brown"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/eggShell_75"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_goals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/anton"
+                android:gravity="center"
+                android:text="Define your daily goal"
+                android:textColor="@color/brown"
+                android:textSize="25sp" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15sp"
+                android:padding="10sp" />
+
+            <TextView
+                android:id="@+id/txt_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15sp"
+                android:fontFamily="@font/balgin_condensed"
+                android:gravity="center"
+                android:text="Debug"
+                android:textColor="@color/brown"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/eggShell_75"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:padding="10sp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/anton"
+                    android:layout_height="wrap_content"
+                    android:text="Device name:"
+                    android:textColor="@color/brown"
+                    android:textSize="25sp"
+                    android:layout_marginHorizontal="20sp"
+                    android:layout_weight="40"/>
+
+                <TextView
+                    android:id="@+id/device_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="60"
+                    android:fontFamily="@font/balgin_condensed"
+                    android:text="Bluetooth device"
+                    android:textColor="@color/darkSand"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/bluetooth_devices"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:layout_margin="10sp"
+                android:nestedScrollingEnabled="true"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:background="@color/eggShell_75"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_badges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:fontFamily="@font/anton"
+                android:gravity="center"
+                android:text="Your Badges"
+                android:textColor="@color/brown"
+                android:textSize="30sp" />
+
+            <ListView
+                android:id="@+id/badges"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:layout_margin="10sp"
+                android:nestedScrollingEnabled="true"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
